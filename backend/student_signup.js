@@ -68,7 +68,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     checkExistsFormData.append('id_no', idNo);
     checkExistsFormData.append('email', formData.get('email'));
 
-    const checkResponse = await fetch('http://localhost/piyuhub/api/auth/check', {
+    const checkResponse = await fetch('http://localhost/piyuhub/api/student_auth/check', {
       method: 'POST',
       body: checkExistsFormData,
     });
