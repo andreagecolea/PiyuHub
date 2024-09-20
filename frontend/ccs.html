@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+    <link rel="stylesheet" href="home_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Top Section -->
+    <div id="top">
+        <div class="logo-container">
+            <img src="Upload/logo/Piyulogo.png" alt="Logo" class="logo">
+            <span class="site-name">PiyuHub</span>
+        </div>
+        <div class="icon-bar" id="icon-bar">
+            <i class="fa-solid fa-user" id="user-icon"></i>
+            <i class="fa-solid fa-bars" id="menu-icon"></i>
+        </div>
+    </div>
+
+    <!-- Left Section -->
+    <div id="left">
+        <div class="account-details">
+            <h3>ACCOUNT DETAILS</h3>
+            <img src="Upload/logo/Piyulogo.png" alt="Profile Picture" class="profile-picture"><br>
+            <label class="custom-button" for="fileInput" title="Change Photo">Change Photo</label>
+            <input type="file" id="fileInput" class="file-input" />
+            <h2 class="student_name" id="student_name">Name here</h2>
+            <p class="student_id" id="student_id"><i class="fa-solid fa-id-card"></i> 0422-0000</p>
+            <p class="student_college" id="student_college"><i class="fa-solid fa-graduation-cap"></i> BSCS</p>
+            <p class="student_email" id="student_email"><i class="fa-solid fa-envelope"></i> johndoe@example.com</p>
+            <button class="btn">Change Email</button>
+            <button class="btn">Change Password</button>
+            <button class="btn logout">Logout</button>
+        </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div id="middle">
+        <div class="posting">
+            <button><a href="post.html" class="tab " onclick="changeTab(this, 'posts')">POST</a></button>
+            <button><a href="ccs.html" class="tab active" onclick="changeTab(this, 'ccs')" >CCS</a></button>
+            <button><a href="lost.html" class="tab" onclick="changeTab(this, 'lost-found')">LOST & FOUND</a></button>
+        </div>
+        <!-- posting Section -->
+        <div class="form-container fade-in">
+            <form action="/submit" method="post" enctype="multipart/form-data">
+                <div class="p-icon">
+                    <div class="icon">
+                            <img src="Upload/logo/Piyulogo.png" alt="User Icon" width="40px"> 
+                    </div>
+                   
+                    <div class="input-group">  
+                        <input type="text" name="concerns" placeholder="Any concerns, (Student's Name)?" class="text-input">  
+                    </div>
+                    <div class="plus-icon">
+                        <label for="add-icon" >
+                        <img src="Upload/logo/add-icon.jpg" alt="Add Icon" width="30px" title="Post">
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="upload-group">
+                    <label for="profile-image" class="upload-label">
+                        <p><i class="fa-solid fa-camera"></i> Upload Image</p>
+                    </label>
+                    <input type="file" id="profile-image" name="profile-image" class="file-input">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Right Section -->
+    <div id="right">
+        <div class="other">
+            <h3>OTHER</h3>
+            <button class="btn">NOTIFICATIONS</button>
+            <button class="btn">MESSAGES</button>
+            <button class="btn">GAMES</button>
+            <button class="btn">SCHOOL PROFILE</button>
+            <button class="btn">ABOUT US</button>
+        </div>
+    </div>
+</body>
+<script src="home_script.js"></script>
+
+</html>
