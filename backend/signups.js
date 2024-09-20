@@ -1,4 +1,4 @@
-const togglePasswordIcons = document.querySelectorAll('.togglePassword'); // Select all elements with the class "togglePassword"
+const togglePasswordIcons = document.querySelectorAll('.togglePassword');
 
 togglePasswordIcons.forEach(toggleIcon => {
   toggleIcon.addEventListener('click', function () {
@@ -8,16 +8,14 @@ togglePasswordIcons.forEach(toggleIcon => {
     if (!passwordInput) {
       // Handle potential error if no password input is found
       console.error('Password input not found for clicked icon.');
-      return; // Exit the function if no input found
+      return;
     }
 
-    // Toggle the type attribute of the password input field
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
 
-    // Toggle the icon class based on password visibility
     this.classList.toggle('bx-hide');
-    this.classList.toggle('bx-show'); // Assuming "bx-show" is your desired class for the visible password icon
+    this.classList.toggle('bx-show'); 
   });
 });
 
