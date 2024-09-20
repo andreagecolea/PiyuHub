@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('email', email);
         formData.append('password', password);
   
-        fetch('http://localhost/piyuhub/api/auth/login', {
+        fetch('http://localhost/piyuhub/api/student_auth/login', {
             method: 'POST',
             body: formData
         })
