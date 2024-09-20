@@ -1,0 +1,328 @@
+/* Body and Grid Layout */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    padding: 60px 60px;
+}
+
+/* Top Section */
+#top {
+    grid-area: top;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.status-container {
+    position: absolute; /* or use fixed for it to stay while scrolling */
+    top: 15px; /* Adjust to your preference */
+    right: 25px; /* Adjust to your preference */
+    cursor: pointer; /* Makes the icon look clickable */
+}
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    margin-left: 10px;
+    border-radius: 50px;
+}
+
+.site-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+.tab {
+    display: inline-block;
+    padding: 2px 20px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.tab.active {
+    border-bottom: 7px solid rgb(0, 255, 200);
+    border-radius: 5px;
+}
+
+/* List */
+.pending-list-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Creates three columns of equal width */
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-top: 10px; /* Adjust based on the height of the fixed top section */
+}
+
+.id-pic-container {
+    flex: 1; /* Adjusts the width of the image container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.id-pic {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.user-details{
+    display: grid;
+}
+.info-list {
+    grid-column: 2; /* Span from column 1 to column 2 */
+}
+
+.info-list p {
+    margin: 5px 0;
+    grid-column: 2;
+}
+
+.dropdown-buttons-section {
+    grid-column: 3;
+    margin-left: 50px;
+}
+
+
+
+select {
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 50px;
+    width: 200px;
+}
+
+.button-group {
+     display: grid;          /* Use flexbox for layout */
+    flex-direction: column;    /* Stack buttons vertically */
+    gap: 10px;                 /* Adds space between the buttons */
+    width: 250px;
+    height: 100px;
+    grid-column: 4;           /* Keep width flexible */
+    margin-left: 100px;
+    margin-top: 40px;
+}
+
+.email{
+    padding: 10px;
+    border-radius: 50px;
+    margin-top: 5px
+}
+
+.appr-btn {
+    padding: 8px 15px;
+    margin-right: 10px;
+    background-color: rgb(20, 185, 20);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 100px;
+    width: 50%;
+}
+
+.appr-btn:hover {
+    background-color: rgb(15, 156, 15);
+}
+
+
+/* Fullscreen modal styling */
+.fullscreen-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* On top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.9); /* Black background with opacity */
+}
+
+.fullscreen-content {
+    margin: 50px auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80%;
+}
+
+/* Close button styling */
+.close-fullscreen {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-fullscreen:hover,
+.close-fullscreen:focus {
+    color: #bbb;
+}
+
+/* Center the modal image */
+#fullscreenImage {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Style for the fixed logout button */
+.logout-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.logout-btn {
+    background-color: #ff4d4d; /* Red background for logout button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-btn:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 3s;
+}
+
+.no-users-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Takes up most of the screen height */
+    font-size: 24px;
+    font-weight: bold;
+    color: #555; /* Gray color */
+    text-align: center;
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 10px;
+    padding: 20px;
+    margin: auto;
+    width: 60%; /* Optional: Limit the width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    body {
+        grid-template-areas:
+            "top top top"
+            "left middle right";
+        grid-template-columns: 30% 40% 30%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        grid-template-areas:
+            "top"
+            "left"
+            "middle"
+            "right";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+    }
+    #top{
+        height: 40px;
+    }
+    .pending-list-content{
+        border: none;
+    }
+    #left, #right {
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    .posting button {
+        margin: 5px 10px;
+    }
+
+    .form-container {
+        width: 95%;
+    }
+    .no-users-message {
+        font-size: 20px;
+        width: 90%; /* Adjust width for smaller screens */
+    }
+    .logo, .site-name{
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    .site-name {
+        font-size: 1.2rem;
+    }
+
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+    }
+
+    .account-details h2 {
+        font-size: 1rem;
+    }
+
+    .account-details p {
+        font-size: 0.7rem;
+    }
+
+    .btn {
+        font-size: 0.7rem;
+        padding: 6px;
+    }
+
+    .posting button {
+        margin: 5px;
+        font-size: 0.8rem;
+    }
+
+    .input-group {
+        padding: 5px;
+    }
+
+    .text-input {
+        font-size: 0.8rem;
+    }
+}
