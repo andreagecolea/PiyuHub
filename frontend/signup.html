@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="signup.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+   <title>Signup | PiyuHub</title>
+</head>
+<body>
+      
+<div class="Signup-container">
+   <img src="piyuLogo.png" alt="Logo" class="logo">
+   <h1>Sign up</h1>
+   <form id="signupForm" method="POST" enctype="multipart/form-data">
+    <div class="upload">
+        <i class='bx bxs-id-card'></i>
+        <label for="student-id-upload">
+            <input type="file" id="student-id-upload" name="id_pic" accept="image/*" hidden>
+            <span id="upload-label">Upload Student ID <br> <span style="color: rgb(16, 77, 156); font-size: 10px;">*Make sure it is readable.</span></span>
+            <img id="uploaded-image" style="display: none;" alt="Uploaded Image">
+        </label>
+    </div>
+    
+    <p class="error-message" id="id-pic-error"></p> <!-- Add this line for displaying the error -->
+ 
+    <div class="name">
+        <input type="text" name="fname" placeholder="First Name" required>
+    </div>
+ 
+    <div class="name">
+        <input type="text" name="lname" placeholder="Last Name" required>
+    </div>
+ 
+    <div class="box">
+         <select name="college" required>
+             <option value="" disabled selected>Select College</option>
+             <option value="CCS">CCS</option>
+             <option value="CTE">CTE</option>
+             <option value="CFND">CFND</option>
+             <option value="CAS">CAS</option>
+             <option value="CBAA">CBAA</option>
+             <option value="CHMT">CHMT</option>
+             <option value="CCJE">CCJE</option>
+             <option value="COF">COF</option>
+         </select>
+     </div>
+ 
+    <div class="box">
+        <input type="text" name="id_no" placeholder="ID no. ex: 0400-0000" required>
+    </div>
+ 
+    <div class="box">
+        <input type="email" name="email" placeholder="Email" required>
+        <i class='bx bxl-gmail gmail-icon'></i>
+    </div>
+ 
+    <div class="box">
+        <input type="password" name="password" placeholder="Password" required>
+        <i class='bx bx-hide togglePassword'></i>
+    </div>
+ 
+    <div class="box">
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        <i class='bx bx-hide togglePassword'></i>
+    </div>
+    <p class="error-message" id="acc-error"></p> <!-- Add this line for displaying the error -->
+    <div>
+        <button type="submit" class="signup-button">Signup</button>
+    </div>
+ 
+    <div class="login-link">
+        <p>ALREADY HAVE AN ACCOUNT?
+        <a href="index.html" id="login-container">LOGIN</a></p>
+    </div>
+ </form>
+ 
+</div>
+
+<script src="signups.js"></script>
+</body>
+</html>

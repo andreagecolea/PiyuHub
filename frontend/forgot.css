@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: "Poppins" , sans-serif;
+    
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(piyuBg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+ }
+
+.logo {
+    width: 80px;
+    height: 75px; 
+    border-radius: 50%;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 5px;
+ }
+
+.forgot-container {
+    width: 90%;
+    max-width: 330px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Added to position logo relative to container */
+    
+}
+
+.forgot-container h2 {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forgot-container .box {
+    
+    width: 100%;
+    height: 45px;
+    background:white;
+    margin: 20px 0;
+    position: relative;
+    
+}
+.box input {
+    width:100%;
+    height:100%;
+    background: white;
+    border: none;
+    outline: none;
+    border-color: transparent;
+    border-radius: 50px;
+    background: linear-gradient(white, white) padding-box, 
+    linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    border-style: solid;
+    font-size: 17px;
+    color: black;
+    padding: 20px 40px 20px 20px;
+}
+
+.box input ::placeholder {
+    color: gray;
+
+}
+
+.box i {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    transform: translateY(-50%);
+    font-size: 20px;
+
+}
+.forgot-container .forgot-button {
+    width: 100%;
+    height: 45px;
+    background:linear-gradient(45deg, #4CAF50, #00BCD4) ;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 17px;
+    color: white;
+    font-weight: 70px;
+}
+
+.forgot-button {
+    padding: 10px 20px;
+    transition: background-color 0.3s ease; 
+    cursor: pointer; 
+    margin-top: 10px;
+}
+
+.forgot-button label {
+    justify-content: center;
+    align-items: center;
+}
+
+.forgot-button:hover {
+    border-color: transparent;
+    border-radius: 50px;
+    background: linear-gradient(white, white) padding-box, 
+    linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    border-style: solid;
+    color: #4CAF50;
+    transition: 1s;
+}
+
+
+
+.forgot-container .login-link {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 10px  
+
+}
+.login-link a {
+    background: transparent;
+    color: black; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    margin-left: -15px;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
