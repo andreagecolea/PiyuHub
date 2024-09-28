@@ -1,17 +1,184 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
     <link rel="stylesheet" href="home_style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" href="piyuLogo.png"> 
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <title>Home | PiyuHub</title>
+    <script>
+        let userData; // Declare userData in a broader scope
+        let updateInterval; // Variable to store the interval ID
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = "index.html";
+            } else {
+                const userDataString = localStorage.getItem('userData');
+                if (userDataString) {
+                    userData = JSON.parse(userDataString);
+                    fetchUserData(userData.id_no); // Use the stored ID to fetch user data
+                } else {
+                    console.error('User data not found in localStorage.');
+                    window.location.href = "index.html";
+                }
+            }
+
+            const concernsInput = document.getElementById('concernsInput');
+            concernsInput.placeholder = `Any concerns, ${userData.fname}?`;
+            // Handle the file input change event
+            const fileInput = document.getElementById('fileInput');
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Set the preview image src
+                        const imagePreviewModal = document.getElementById('imagePreviewModal');
+                        imagePreviewModal.src = e.target.result;
+
+                        // Show the modal
+                        const uploadModal = document.getElementById('uploadModal');
+                        uploadModal.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Confirm upload button
+            document.getElementById('confirmUpload').addEventListener('click', function() {
+                uploadProfilePicture();
+            });
+
+            // Cancel upload button
+            document.getElementById('cancelUpload').addEventListener('click', function() {
+                document.getElementById('uploadModal').style.display = 'none'; // Hide the modal
+                document.getElementById('fileInput').value = ''; // Clear the file input
+            });
+        });
+
+        function fetchUserData(studentId) {
+            fetch(`http://localhost/piyuhub/api/home/load_account?student_id=${studentId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the account details with fetched user data
+                        const userData = data.userData;
+        
+                        document.getElementById('student_name').textContent = `${userData.fname} ${userData.lname}`;
+                        document.getElementById('student_id').innerHTML = `<i class="fa-solid fa-id-card"></i> ${userData.id_no}`;
+                        document.getElementById('student_college').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${userData.college}`;
+                        document.getElementById('student_email').innerHTML = `<i class="fa-solid fa-envelope"></i> ${userData.email}`;
+                        document.getElementById('department').textContent = userData.college;
+                        // Set profile picture
+                        const profilePic = document.querySelector('.profile-picture');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        const profileImageUrl = userData.profile_picture ? userData.profile_picture + '?t=' + new Date().getTime() : 'Upload/logo/profile.png';
+                
+                        // Update both profile picture displays
+                        profilePic.src = profileImageUrl;
+                        userProfilePic.src = profileImageUrl; // Update the user icon's src    
+                    } else {
+                        console.error(data.error);
+                        // Handle user not found case
+                        window.location.href = "index.html"; // Redirect if user not found
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    alert('An error occurred while fetching user data. Please try again.');
+                });
+        }
+        
+        function updateUIWithUserData(data) {
+            document.getElementById('student_name').textContent = `${data.fname} ${data.lname}`;
+            document.getElementById('student_id').innerHTML = `<i class="fa-solid fa-id-card"></i> ${data.id_no}`;
+            document.getElementById('student_college').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${data.college}`;
+            document.getElementById('student_email').innerHTML = `<i class="fa-solid fa-envelope"></i> ${data.email}`;
+            document.getElementById('department').textContent = userData.college;
+            
+            const profilePic = document.querySelector('.profile-picture');
+            const userProfilePic = document.getElementById('userProfilePic');
+            const pictureSrc = data.profile_picture ? data.profile_picture + '?t=' + new Date().getTime() : 'Upload/logo/profile.png';
+            profilePic.src = pictureSrc;
+            userProfilePic.src = pictureSrc;
+
+            const concernsInput = document.getElementById('concernsInput');
+            concernsInput.placeholder = `Any concerns, ${data.fname}?`;
+        }
+
+        function startUpdateCheck() {
+            // Clear any existing interval
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+
+            // Set up a new interval to check for updates every 30 seconds
+            updateInterval = setInterval(checkForUpdates, 30000);
+        }
+
+       
+
+        function uploadProfilePicture() {
+            const fileInput = document.getElementById('fileInput'); 
+            const studentId = userData.id_no;
+            
+            if (fileInput.files.length > 0) {
+                const formData = new FormData();
+                formData.append('profile_picture', fileInput.files[0]);
+                formData.append('student_id', studentId);
+                
+                fetch('http://localhost/piyuhub/api/home/upload_profile', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.success);
+                        
+                        // Update the profile picture src
+                        const profilePic = document.querySelector('.profile-picture');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        const newPictureSrc = data.profile_picture + '?t=' + new Date().getTime();
+                        profilePic.src = newPictureSrc;
+                        userProfilePic.src = newPictureSrc;
+        
+                        // Update the userData object and localStorage
+                        userData.profile_picture = data.profile_picture; 
+                        localStorage.setItem('userData', JSON.stringify(userData));
+            
+                        // Hide the modal after successful upload
+                        document.getElementById('uploadModal').style.display = 'none';
+                        // Clear the file input
+                        fileInput.value = '';
+
+                        // Trigger an immediate update check
+                        checkForUpdates();
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            } else {
+                alert('Please select an image to upload.');
+            }
+        }
+        
+    </script>
+    
 </head>
+
 <body>
     <!-- Top Section -->
     <div id="top">
@@ -29,9 +196,9 @@
     <div id="left">
         <div class="account-details">
             <h3>ACCOUNT DETAILS</h3>
-            <img src="Upload/logo/Piyulogo.png" alt="Profile Picture" class="profile-picture"><br>
+            <img alt="Profile Picture" class="profile-picture" src="Upload/logo/profile.png"><br>
             <label class="custom-button" for="fileInput" title="Change Photo">Change Photo</label>
-            <input type="file" id="fileInput" class="file-input" />
+            <input type="file" id="fileInput" class="file-input" style="display: none;" accept="image/*"/>
             <h2 class="student_name" id="student_name">Name here</h2>
             <p class="student_id" id="student_id"><i class="fa-solid fa-id-card"></i> 0422-0000</p>
             <p class="student_college" id="student_college"><i class="fa-solid fa-graduation-cap"></i> BSCS</p>
@@ -39,44 +206,57 @@
             <button class="btn">Change Email</button>
             <button class="btn">Change Password</button>
             <button class="btn logout">Logout</button>
-        </div>
+        </div>        
     </div>
 
     <!-- Middle Section -->
     <div id="middle">
         <div class="posting">
             <button><a href="post.html" class="tab active" onclick="changeTab(this, 'posts')">POST</a></button>
-            <button><a href="ccs.html" class="tab" onclick="changeTab(this, 'ccs')" >CCS</a></button>
+            <button>
+                <a href="ccs.html" class="tab" onclick="changeTab(this, 'ccs')" id="department">COLLEGE</a>
+            </button>            
             <button><a href="lost.html" class="tab" onclick="changeTab(this, 'lost-found')">LOST & FOUND</a></button>
         </div>
-        <!-- posting Section -->
+        <!-- Posting Section -->
         <div class="form-container fade-in">
-            <form action="/submit" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 <div class="p-icon">
                     <div class="icon">
-                            <img src="Upload/logo/Piyulogo.png" alt="User Icon" width="40px"> 
+                        <img id="userProfilePic" src="Upload/logo/profile.png" alt="User Icon" width="40px"> 
                     </div>
-                   
+                    
                     <div class="input-group">  
-                        <input type="text" name="concerns" placeholder="Any concerns, (Student's Name)?" class="text-input">  
-                    </div>
-                    <div class="plus-icon">
-                        <label for="add-icon" >
-                        <img src="Upload/logo/add-icon.jpg" alt="Add Icon" width="30px" title="Post">
-                        </label>
+                        <input type="text" id="concernsInput" name="concerns" placeholder="Any concerns?" class="text-input">  
                     </div>
                 </div>
                 
-                <div class="upload-group">
-                    <label for="profile-image" class="upload-label">
-                        <p><i class="fa-solid fa-camera"></i> Upload Image</p>
-                    </label>
-                    <input type="file" id="profile-image" name="profile-image" class="file-input">
-                </div>
-            </form>
+            </form> 
         </div>
+    
+
+
+
+        <div id="postsContainer"></div>
+
+        <!-- Fullscreen Modal -->
+        <div id="fullscreenModal" style="display: none;">
+            <span id="closeModal" style="cursor: pointer;">&times;</span>
+            <img id="fullscreenImage" src="" alt="Full Screen Image" />
+        </div>
+        
+        
     </div>
 
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Preview Your Profile Picture</h3>
+            <img id="imagePreviewModal" src="" alt="Image Preview" style="max-width: 200px; margin-bottom: 10px;">
+            <button id="confirmUpload" class="btn">Upload</button>
+            <button id="cancelUpload" class="btn">Cancel</button>
+        </div>
+    </div>
 
     <!-- Right Section -->
     <div id="right">
@@ -89,7 +269,47 @@
             <button class="btn">ABOUT US</button>
         </div>
     </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to logout?</p>
+            <div class="modal-buttons">
+                <button id="confirmLogout" class="btn1 confirm">Yes, Logout</button>
+                <button id="cancelLogout" class="btn1 cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Posting Concerns -->
+    <div id="postModal" class="modal-post" style="display:none;">
+        <div class="modal-content-post">
+            <h3>Post Your Concern</h3>
+            <div class="post-input-group">  
+                <textarea id="postInput" name="concern" placeholder="Type your concern here..." class="text-input" rows="4" style="width: 100%;"></textarea>  
+            </div>
+            <div class="btn-upl">
+            <div id="imagePreviews" class="image-previews"></div>
+            <div class="upload-btn">
+                <label for="postImage" class="upload-label">
+                    <p><i class="fa-solid fa-camera"></i> Upload Images (up to 5)</p>
+                </label>
+                <input type="file" id="postImage" class="file-input" style="display: none;" accept="image/*" multiple/>
+            </div>
+            <button id="submitPost" class="btn">Post</button>
+            <button id="cancelPost" class="btn">Cancel</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Image Modal -->
+    <div id="fullscreenModal" class="fullscreen-modal" style="display: none;">
+        <span class="close" id="closeFullscreen">&times;</span>
+        <img class="fullscreen-image" id="fullscreenImage" src="" alt="Full Size Image">
+    </div>
 </body>
-<script src="home_script.js"></script>
+
+<script src="home_scripts.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 </html>

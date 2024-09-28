@@ -75,7 +75,8 @@ body {
     position: fixed;
     left: 0;
     height: 100%;
-    width: 22.5%;
+    z-index: 1000;
+    width: 22.74%;
 }
 
 .account-details {
@@ -135,6 +136,25 @@ body {
     color: white;
 }
 
+.upload-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 10px;
+    color: #030303;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.upload-btn:hover {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+}
+
 /* Middle Section */
 #middle {
     grid-area: middle;
@@ -150,6 +170,7 @@ body {
     background-color: white;
     position: fixed;
     width: 50%;
+    z-index: 1000;
 }
 
 .posting button {
@@ -169,7 +190,8 @@ body {
     position: fixed;
     right: 0;
     height: 100%;
-    width: 25%;
+    width: 23%;
+    z-index: 1000;
 }
 
 .other h3 {
@@ -187,7 +209,6 @@ body {
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    height: 80px;
     width: 90%;
     max-width: 500px;
     margin: 80px auto;
@@ -207,6 +228,26 @@ body {
     width: 100%;
     margin-bottom: 15px;
 }
+/* Ensure the container is a flex container and aligns items to the right */
+
+
+/* Styling for the post button */
+.post-btn {
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px 15px;
+    border-radius: 50px;
+    cursor: pointer; /* Makes the button look clickable */
+    font-size: 0.9rem;
+    color: black;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+}
+
+.post-btn:hover {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+}
 
 .icon, .plus-icon {
     margin: 0 10px;
@@ -216,8 +257,8 @@ body {
 }
 .icon img {
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 
 .text-input {
@@ -228,27 +269,11 @@ body {
     padding: 5px;
 }
 
-.upload-group {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    margin-top: -15px;
-    font-size: small;
-    margin-left: 50px;
-}
 
-.upload-label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
 
-.upload-label img {
-    margin-right: 8px;
-    width: 20px;
-    height: 20px;
-}
+
+
+
 
 .tab {
     display: inline-block;
@@ -259,6 +284,246 @@ body {
 .tab.active {
     border-bottom: 2px solid #4CAF50;
 }
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+.modal h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn1 {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    font-size: 0.9rem;
+    color: #030303;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.modal-post {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   z-index: 1000;
+}
+
+.modal-content-post {
+    background-color: white;
+    padding: 20px 0px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px;
+}
+.modal-content-post h3{
+    text-align: center;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding-bottom: 10px;
+}
+.btn-upl{
+    border-top: 1px solid black;
+    padding: 20px 100px;
+}
+.post-input-group{
+    border: 2px solid transparent;
+    background-color: transparent;
+    padding: 0px 20px;
+    margin-bottom: 10px;
+    height: 150px;
+    max-height: 200px;
+}
+.post-input-group textarea{
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+.fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.fullscreen-image {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.post-container {
+    background-color: #fff;
+    padding: 20px;
+    margin: 80px auto;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    padding-top: 30px;
+    padding-bottom: 30px; 
+}
+.user-post {
+    display: flex; 
+    align-items: center; 
+    border-bottom: 1px solid grey;
+    padding-bottom: 20px;
+}
+
+.user-post p {
+    margin: 0 10px;         
+}
+
+.user-dp {
+    max-width: 50px;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+.post-content img {
+    display: block;
+    margin: 0 auto;
+
+}
+
+
+.btn1:hover {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+}
+
+
+
+.post-content {
+    padding: 15px; /* Optional: Add padding */
+}
+
+.student-college {
+    color: #8e8e8e;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.swiper-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #fff;
+}
+
+#fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+#fullscreenImage {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+#closeModal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -283,6 +548,17 @@ body {
     margin-left: 15px;
     cursor: pointer;
 }
+#imagePreviews {
+    display: flex; /* Aligns the previews in a row */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    padding: 10px; /* Optional: adds some padding */
+    white-space: nowrap; /* Prevents wrapping to the next line */
+}
+
+#imagePreviews div {
+    margin-right: 10px; /* Adds space between images */
+}
+
 
 @media screen and (max-width: 768px) {
     #left, #right {
@@ -315,8 +591,51 @@ body {
         right: 0;
         display: block;
     }
+    .post-container {
+        margin: 60px auto;
+        padding: 15px;
+    }
+    
+
+    .user-post {
+        padding-bottom: 15px;
+    }
+
+    .user-post p {
+        font-size: 12px;
+        margin: 5px 0;
+    }
+
+    .user-dp {
+        max-width: 40px;
+    }
+
+    .post-content {
+        padding: 10px 0;
+    }
+
+    .student-college {
+        font-size: 10px;
+    }
+
+    .swiper-container {
+        max-height: 300px;
+    }
+
 }
 
+@media screen and (max-width: 768px) {
+    body {
+        grid-template-areas:
+            "top"
+            "middle";
+        grid-template-columns: 1fr;
+    }
+
+    #middle {
+        padding: 0 10px;
+    }
+}
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
     body {
@@ -324,6 +643,13 @@ body {
             "top top top"
             "left middle right";
         grid-template-columns: 30% 40% 30%;
+    }
+    #middle {
+        width: 100%;
+    }
+
+    .posting {
+        width: 100%;
     }
    
 }
@@ -388,7 +714,7 @@ body {
     }
 
     .btn {
-        font-size: 0.8rem;
+        font-size: 20px;
         padding: 8px;
     }
 
@@ -417,26 +743,24 @@ body {
     }
 
     .profile-picture {
-        width: 80px;
-        height: 80px;
+        width: 300px;
+        height: 300px;
+        max-width: 300px;
+        max-height: 300px;
     }
 
     .account-details h2 {
-        font-size: 1rem;
+        font-size: 18px;
     }
 
     .account-details p {
-        font-size: 0.7rem;
+        font-size: 18px;
     }
 
-    .btn {
-        font-size: 0.7rem;
-        padding: 6px;
-    }
 
     .posting button {
         margin: 5px;
-        font-size: 0.8rem;
+        font-size: 18px;
     }
 
     .input-group {
@@ -447,7 +771,34 @@ body {
         font-size: 0.8rem;
     }
 
+    .post-container {
+        margin: 50px auto;
+        padding: 10px;
+    }
 
+    .user-post {
+        padding-bottom: 10px;
+    }
+
+    .user-post p {
+        font-size: 11px;
+    }
+
+    .user-dp {
+        max-width: 35px;
+    }
+
+    .post-content {
+        padding: 5px 0;
+    }
+
+    .student-college {
+        font-size: 9px;
+    }
+
+    .swiper-container {
+        max-height: 250px;
+    }
 
 }
 
