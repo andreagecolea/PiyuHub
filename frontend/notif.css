@@ -1,0 +1,76 @@
+body {
+    font-family: "Poppins", sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.header h1{
+    font-size: 24px;
+}
+.back-arrow {
+    font-size: 20px;
+    margin-right: 10px;
+    text-decoration: none;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 5px 10px;
+    
+}
+
+/* Notification styles */
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.notification-icon {
+    font-size: 24px;
+    margin-right: 15px;
+    font-size: 30px;
+    font-size: 40px; /* Choose your font size */
+    background: linear-gradient(to right,  #4CAF50, #00BCD4); /* Define the gradient colors */
+    -webkit-background-clip: text; /* For Safari */
+    background-clip: text; /* For other browsers */
+    color: transparent; /* Make text color transparent */
+    
+    
+}
+.notification-content {
+    flex-grow: 1;
+}
+.notification-title {
+    font-weight: bold;
+    margin-top: 23px;
+}
+.notification-info {
+    color: #ccc;
+    text-align: center;
+    
+}
+
+/* Empty state styles */
+.empty-state {
+    text-align: center;
+    color: #ccc;
+    margin-top: 50px;
+    padding-left: 50px;
+}
+

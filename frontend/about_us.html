@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PiyuHub</title>
+     <!-- link for profile icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="about_us.css">
+     <!-- link for back arrow icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <!-- link for Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" >
+ 
+</head>
+<body>
+    <!-- Header section -->
+    <header class="header">
+        <span class="back-arrow"><i class="fas fa-arrow-left"></i></span>
+        <h1>About Us</h1>
+    </header>
+    <div class="whole">
+    <!-- Team members section -->
+    <section class="team-members">
+        <!-- Team member cards -->
+        <div class="member-card">
+            <div class="member-avatar"><i class="fas fa-user-circle"></i></div>
+            <p class="member-name">Andrea Gecolea</p>
+            <p class="member-role">Team Leader</p>
+        </div>
+        <div class="member-card">
+            <div class="member-avatar"><i class="fas fa-user-circle"></i></div>
+            <p class="member-name">Darel Alcaraz</p>
+            <p class="member-role">Member</p>
+        </div>
+        <div class="member-card">
+            <div class="member-avatar"><i class="fas fa-user-circle"></i></div>
+            <p class="member-name">Chris Balogo</p>
+            <p class="member-role">Member</p>
+        </div>
+        <div class="member-card">
+            <div class="member-avatar"><i class="fas fa-user-circle"></i></div>
+            <p class="member-name">Roda Mendez</p>
+            <p class="member-role">Member</p>
+        </div>
+    </section>
+
+    
+
+
+
+    <!-- Description section -->
+    <section class="description">
+        <p><span style="font-weight:bold">PiyuHub</span> is a dedicated platform designed by a group of enthusiastic students from LSPU - Los Baños, specifically from the BSCS-3A. Our mission is to enhance communication and support among students by providing a space where you can easily voice your concerns, share ideas, and stay connected with the community.</p>
+        <p>Whether you have a question, feedback, or just want to reach out, we're here to listen. Please fill out the form below to contact us, and we'll get back to you as soon as possible. Join us in making PiyuHub a valuable resource for everyone at LSPU - LB.</p>
+    </section>
+
+     <!-- Main container -->
+     <div class="container">
+        <!-- Title section with back arrow -->
+       <div class="form-title">
+           <h2>Contact Us</h2>
+       </div>
+       <!-- Contact form -->
+       <form id="contactForm">
+            <!-- Name input -->
+           <div class="form-group">
+               <label for="name">Name:</label>
+               <input type="text" id="name" placeholder="Provide your name" required>
+           </div>
+           <!-- Subject input -->
+           <div class="form-group">
+               <label for="subject">Subject:</label>
+               <input type="text" id="subject" placeholder="Topic of your message" required>
+           </div>
+           <!-- Email input -->
+           <div class="form-group">
+               <label for="email">Email:</label>
+               <input type="email" id="email" placeholder="Provide your email" required>
+           </div>
+            <!-- Message textarea -->
+           <div class="form-group">
+               <label for="message">Message:</label>
+               <textarea id="message" placeholder="Your message" required></textarea>
+           </div>
+           <!-- Submit button -->
+           <button type="submit" class="submit-btn">Send</button>
+       </form>
+   </div>
+   </div>
+ 
+
+
+</body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message. We will get back to you soon!');
+        this.reset();
+    });
+
+    const memberCards = document.querySelectorAll('.member-card');
+    memberCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
+</script>
+</html>
