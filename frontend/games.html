@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Computer Science Quiz</title>
+    <link rel="stylesheet" href="games.css">
+</head>
+<body>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li onclick="startQuiz('CCS')">CCS</li>
+            <li onclick="startQuiz('CAS')">CAS</li>
+            <li onclick="startQuiz('CTE')">CTE</li>
+            <li onclick="startQuiz('CBAA')">CBAA</li>
+            <li onclick="startQuiz('CCJE')">CCJE</li>
+            <li onclick="startQuiz('COF')">COF</li>
+            <li onclick="startQuiz('CFND')">CFND</li>
+            <li onclick="startQuiz('CHMT')">CHMT</li>
+        </ul>
+    </div>
+  
+    <button id="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <h1>Game Quiz</h1>
+    <div id="game-container">
+        <div id="question"></div>
+        <div id="choices"></div>
+        <button id="next-btn">Next Question</button>
+        <div id="score"></div>
+    </div>
+    <script src="gamescript.js"></script>
+</body>
+</html>

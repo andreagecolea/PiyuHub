@@ -1,0 +1,401 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+}
+
+.header-container {
+    background-color: white;
+    height: 20px;
+    padding: 38px 50px;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+    top: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: fixed;
+}
+
+.back-button {
+    background: white;
+    border: solid black 3px;
+    border-radius: 25%;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.header h1 {
+    margin-left: 15px;
+}
+
+.nav-buttons {
+    top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    position: fixed;
+    z-index: 1002; /* Increased z-index to bring nav-buttons to the front */
+    padding: 20px 0px; /* Add some padding for better visibility */
+    background-color: white;
+    width: 70%;
+    border-radius: 30px;
+    left: 50%; /* Set left position to 50% */
+    transform: translateX(-50%); /* Center the element by translating it back by half its width */
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.nav-button {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.nav-button:hover {
+    opacity: 0.8;
+    transform: translateY(-5px);
+}
+
+.profile-container {
+    padding-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.level {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+.profile-card {
+    width: 250px;
+    height: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    background-color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px;
+}
+.icon {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+}
+.icon1 {
+    background-image: url('Mario R. Briones Ed.D..jpg');
+}
+.icon2 {
+    background-image: url('ATTY. Rushid Jhay S. Sancon, PhD.jpg');
+}
+.icon3 {
+  background-image: url('Eden C. Callo Ed.D..jpg');
+}
+.icon4 {
+  background-image: url('Loyd S. Echelar.jpg');
+}
+.icon5 {
+  background-image: url('John Paul Micosa.jpg');
+}
+.icon6 {
+  background-image: url('Jefferson L. Lerios, DIT.jpg');
+}
+.icon7 {
+  background-image: url('Cirsanto F. Gulay, MIT.jpg');
+}
+.icon8 {
+  background-image: url('Jornardo R. Asor, MIT.jpg');
+}
+.icon9 {
+  background-image: url('Gene Marck B. Catedrilla, MIT.jpg');
+}
+.icon10 {
+  background-image: url('Jonalyn Joy B. Labayne, MIT.jpg');
+}
+.icon11 {
+  background-image: url('Michael M. Casabuena, MSCS.jpg');
+}
+.icon12 {
+  background-image: url('Jocelyn O. Padallan, BSIT.jpg');
+}
+.icon13 {
+  background-image: url('Merardo A. Camba, Jr.jpg');
+}
+.icon14 {
+  background-image: url('Wilcon Suyat.jpg');
+}
+.icon15 {
+  background-image: url('Alejandro V. Mtute, Jr, MSIT.jpg');
+}
+.icon16 {
+  background-image: url('Mike Philip T. Ramos, MSIT.jpg');
+}
+.icon17 {
+  background-image: url('Mylene V. Anquilo, MSIT.jpg');
+}
+.icon18 {
+  background-image: url('Morris V. Jobone.jpg');
+}
+.icon19 {
+  background-image: url('Andres R. Vicedo.jpg');
+}
+.icon20 {
+  background-image: url('Myra V. Paicaglino, MPA.jpg');
+}
+.icon21 {
+  background-image: url('Carolina R. Joval, MAEd.jpg');
+}
+.icon22 {
+  background-image: url('.jpg');
+}
+.icon23 {
+  background-image: url('Sherwin B. Sapin, EdD.jpg');
+}
+.icon24 {
+  background-image: url('Maribel V. Cardona, MSIT.jpg');
+}
+.icon25 {
+  background-image: url('Rowan N. Elomina, PhD.jpg');
+}
+.icon26 {
+  background-image: url('.jpg');
+}
+.icon27 {
+  background-image: url('.jpg');
+}
+.icon28 {
+  background-image: url('.jpg');
+}
+.name {
+    font-weight: bold;
+    font-size: 15px;
+    padding-top: 10px;
+}
+ .title{ 
+    font-size: 0.9em;
+    font-size: 10px;
+    color: #666;
+ }
+ .level-2 .profile-card:nth-child(2) {
+    position: absolute;
+    right: -280px;
+    top: -150px;
+}
+.level-3 .profile-card:nth-child(2) {
+    position: absolute;
+    right: -280px;
+    top: 150px;
+}
+/* Scroll Up Icon Styling */
+.scroll-up {
+    position: fixed;
+    bottom: 50px;
+    right: 70px;
+    color: white;
+    padding: 10px 15px 15px 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+    
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    cursor: pointer;
+    font-size: 20px;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    height: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Hide scrollbar in WebKit browsers */
+.nav-buttons::-webkit-scrollbar {
+    display: none;
+}
+
+/* Show scrollbar only on overflow */
+.nav-buttons {
+    scrollbar-width: thin; /* For Firefox */
+}
+
+/* ... (previous CSS remains unchanged) ... */
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .nav-buttons {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        top: 90px;
+        width: 90%;
+    }
+
+    .nav-button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        padding-top: 180px;
+    }
+
+    .level {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .profile-card {
+        width: 90%;
+        max-width: 280px; /* Increased max-width for uniformity */
+        height: 340px; /* Fixed height for all cards */
+        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .icon {
+        width: 220px;
+        height: 220px;
+        margin: 0 auto;
+    }
+
+    .name {
+        font-size: 16px;
+        padding-top: 20px;
+    }
+
+    .title {
+        font-size: 14px;
+        padding-bottom: 20px;
+    }
+
+    /* Specific positioning for Eden and John Paul */
+    .level-1, .level-2, .level-3 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .level-1 .profile-card:nth-child(1) { order: 1; } /* Mario R. Briones Ed.D. */
+    .level-1 .profile-card:nth-child(3) { order: 2; } /* Eden C. Callo Ed.D. */
+    .level-1 .profile-card:nth-child(2) { order: 3; } /* ATTY. Rushid Jhay S. Sancon, PhD */
+
+    .level-2 .profile-card:nth-child(1) { order: 1; } /* Loyd S. Echelar */
+    .level-2 .profile-card:nth-child(2) { order: 2; } /* John Paul Micosa */
+
+    /* Reset absolute positioning */
+    .level-2 .profile-card:nth-child(2),
+    .level-3 .profile-card:nth-child(2) {
+        position: static;
+        right: auto;
+        top: auto;
+    }
+
+    /* Adjust header for mobile */
+    .header-container {
+        padding: 15px 20px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1001;
+    }
+
+    .header {
+        position: static;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .back-button {
+        font-size: 20px;
+        padding: 5px 10px;
+        margin-right: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.2em;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Adjust nav-buttons for mobile */
+    .nav-buttons {
+        position: fixed;
+        top: 55px;
+        left: 50%;
+        right: 0;
+        width: 100%;
+        padding: 10px 0;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;   /* bago ito.. Eto nilagyan ko lang */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1100;
+        border-radius: 1px;
+    
+    }
+
+    .nav-button {
+        flex: 0 0 auto;
+        margin: 0 5px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    /* Adjust profile container top padding */
+    .profile-container {
+        padding-top: 120px;
+    }
+}
+.scroll-up {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    color: white;
+    padding: 10px 15px 15px 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+    
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    cursor: pointer;
+    font-size: 20px;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    height: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
