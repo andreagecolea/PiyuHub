@@ -1,0 +1,166 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+
+}
+body {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh ;
+    background-image: url(piyuBg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+/* everytihng inside the container of change email */
+.container{
+
+    border:1px;
+    border-radius: 20px;
+    border-color: black;
+    border-style: solid;
+    justify-content: center;
+    align-items: center;
+    width: 650px;
+    height: 400px;
+    background: white;
+}
+/* icon arrow and h1*/
+.icon-container {
+   
+    display: flex;
+    margin: 25px 50px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+    background: none;
+    align-items: center;
+    
+}
+.icon-container h1 {
+    margin-left: 20px;
+    font-size: 24px;
+
+}
+.icon-container i, .icon-container button {
+    font-size: 32px;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    justify-content: center;
+    display:flex;
+
+}
+.icon-container button:hover {
+    border-color: transparent;
+    background: linear-gradient(45deg, #4CAF50, #00BCD4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.icon-container button:target .arrow { 
+    display: none;
+}
+
+.icon-container button:active {
+    transform: scale(1.1);
+}
+
+.icon-container img {
+
+    width: 40px;
+    height: 40px;
+    margin-left: 290px;
+    border-radius: 20px;
+}
+.input_box i {
+  
+   top: 42%;
+   left: 510px;
+   transform: translateY(-50%);
+   font-size: 25px;
+   color: gray;
+   position:absolute;
+}
+
+
+.input_box {
+    display: grid;
+    place-items: center;
+    
+    
+}
+/* new email container */
+.input_box input{
+
+    padding: 10px;
+    border-radius: 16px ;
+    border: solid 2px gray ; 
+    text-align: center;
+    width: 350px;
+    font-size: 17px;
+    margin: 15px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+
+.input_box input:hover {
+    border: solid 2px #4CAF50;
+    animation: border-flash 1s infinite;
+
+}
+
+@keyframes border-flash {
+    0% {
+
+        border: solid 2px #00BCD4;
+    }
+    50% {
+        border: solid 2px #4CAF50;
+    }
+    100% {
+        border: solid 2px #00BCD4;
+    }
+}
+
+/* to position the button in the center */
+.email_box {
+    display: grid;
+    place-items: center;
+}
+
+/*edit text inside the button container*/
+.email_box button {
+    border-radius: 20px;
+    width: 150px;
+    height: 45px;
+    background:linear-gradient(45deg, #4CAF50, #00BCD4) ;
+    border: solid 1px black;
+    outline: none;
+    cursor: pointer;
+    font-size: 17px;
+    color: white;
+    font-weight: 70px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+
+}
+
+.email_box button:hover {
+    background-color: #00BCD4;
+}
+
+.email_box button:active {
+    transform: scale(1.1);
+}
+
