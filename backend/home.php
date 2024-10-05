@@ -130,9 +130,191 @@ class PostWeb {
     
     
     
-    public function fetch_comment() {
+    public function get_comments() {
+        global $conn; // Assuming you are using $conn (similar to get_posts)
+        header('Content-Type: application/json');
+        header("Access-Control-Allow-Methods: GET");
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['post_id'])) {
+            $post_id = $_GET['post_id'];
+            
+            // Query to get comments for a specific post, including the profile picture and comment image
+            $query = "
+                SELECT 
+                    c.id,
+                    c.comment_text, 
+                    c.comment_image,  -- Include the comment_image field
+                    c.created_at, 
+                    CONCAT(u.fname, ' ', u.lname) AS student_name, 
+                    u.college,
+                    u.profile_picture -- Add profile_picture to the selected columns
+                FROM 
+                    comments c 
+                JOIN 
+                    users u ON c.student_id = u.student_id
+                WHERE 
+                    c.post_id = ?
+                ORDER BY 
+                    c.created_at ASC
+            ";
+            
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('i', $post_id); // Use bind_param for prepared statements
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            $comments = [];
+            while ($row = $result->fetch_assoc()) {
+                $comments[] = $row;
+            }
+    
+            // Output the comments in JSON format
+            echo json_encode($comments);
+            $stmt->close();
+        } else {
+            http_response_code(400); // Bad request
+            echo json_encode(["message" => "Invalid request"]);
+        }
+    }
+    public function add_comment() {
         global $conn;
-        // Your comment logic
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+        header('Content-Type: application/json');
+        header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type");
+        
+        // Initialize variables
+        $comment_image = null;
+        $uploadDir = 'Upload/comments/'; // Directory to store uploaded images
+        
+        // Check if there's an image upload
+        if (isset($_FILES['comment_image']) && $_FILES['comment_image']['error'] == 0) {
+            $comment_image = $uploadDir . basename($_FILES['comment_image']['name']);
+            $imageFileType = strtolower(pathinfo($comment_image, PATHINFO_EXTENSION));
+            
+            // Validate image file type
+            $allowedTypes = array('jpg', 'jpeg', 'png', 'gif', 'jfif', 'heic', 'gif');
+            if (!in_array($imageFileType, $allowedTypes)) {
+                echo json_encode(['success' => false, 'message' => 'Invalid image file type.']);
+                return;
+            }
+            
+            // Move uploaded file to the server directory
+            if (!move_uploaded_file($_FILES['comment_image']['tmp_name'], $comment_image)) {
+                echo json_encode(['success' => false, 'message' => 'Failed to upload image.']);
+                return;
+            }
+        }
+        
+        // Retrieve posted data from JSON or POST (for text data)
+        $post_id = $_POST['post_id'] ?? null;
+        $student_id = $_POST['student_id'] ?? null;
+        $comment_text = isset($_POST['comment_text']) ? trim($_POST['comment_text']) : ''; // Set to empty string if not provided
+    
+        // Validate input
+        if (empty($post_id) || empty($student_id)) {
+            echo json_encode(['success' => false, 'message' => 'Post ID or student ID is missing.']);
+            return;
+        }
+        
+        // Start transaction
+        $conn->begin_transaction();
+        
+        try {
+            // Retrieve the student's name
+            $stmt = $conn->prepare("SELECT fname, lname FROM users WHERE student_id = ?");
+            if (!$stmt) {
+                throw new Exception("Failed to prepare student query: " . $conn->error);
+            }
+            $stmt->bind_param("s", $student_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            // Check if student exists
+            if ($result->num_rows === 0) {
+                throw new Exception("Student not found with ID: $student_id");
+            }
+            $user = $result->fetch_assoc();
+            $stmt->close();
+    
+            // Insert the comment into the comments table
+            $insert_stmt = $conn->prepare("
+                INSERT INTO comments (post_id, student_id, comment_text, fname, lname, comment_image)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ");
+            if (!$insert_stmt) {
+                throw new Exception("Failed to prepare insert query: " . $conn->error);
+            }
+    
+            // Allow the comment_text to be NULL if empty
+            $insert_stmt->bind_param("isssss", $post_id, $student_id, $comment_text, $user['fname'], $user['lname'], $comment_image);
+            
+            if (!$insert_stmt->execute()) {
+                throw new Exception("Failed to execute insert query: " . $insert_stmt->error);
+            }
+            $insert_stmt->close();
+    
+            // Commit transaction
+            $conn->commit();
+    
+            echo json_encode(['success' => true, 'message' => 'Comment added successfully!']);
+            
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            $conn->rollback();
+            error_log("Error in add_comment: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()]);
+        }
+    }
+    public function delete_post() {
+        global $conn;
+    
+        // Check if the request method is DELETE
+        if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+            // Parse the input JSON body for DELETE requests
+            $input = json_decode(file_get_contents('php://input'), true);
+    
+            // Check if postId is provided
+            if (isset($input['postId'])) {
+                $postId = intval($input['postId']); // Get the post ID from the request body
+    
+                // Prepare the SQL statement to delete the post
+                $sql = "DELETE FROM post WHERE id = ?";
+    
+                if ($stmt = $conn->prepare($sql)) {
+                    // Bind the parameter
+                    $stmt->bind_param('i', $postId);
+    
+                    // Execute the statement
+                    if ($stmt->execute()) {
+                        // Check if a row was affected
+                        if ($stmt->affected_rows > 0) {
+                            http_response_code(200); // OK
+                            echo json_encode(['message' => 'Post deleted successfully.']);
+                        } else {
+                            http_response_code(404); // Not Found
+                            echo json_encode(['message' => 'Post not found.']);
+                        }
+                    } else {
+                        http_response_code(500); // Internal Server Error
+                        echo json_encode(['message' => 'Error deleting post: ' . $stmt->error]);
+                    }
+    
+                    // Close the statement
+                    $stmt->close();
+                } else {
+                    http_response_code(500); // Internal Server Error
+                    echo json_encode(['message' => 'Database error: ' . $conn->error]);
+                }
+            } else {
+                http_response_code(400); // Bad Request
+                echo json_encode(['message' => 'Invalid request. Please provide a valid post ID.']);
+            }
+        } else {
+            http_response_code(405); // Method Not Allowed
+            echo json_encode(['message' => 'Invalid request method. Only DELETE allowed.']);
+        }
     }
 
     public function load_account() {
