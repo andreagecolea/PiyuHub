@@ -27,14 +27,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set student name and ID on the page
     document.getElementById('student_name').textContent = `${userData.fname} ${userData.lname}`;
     document.getElementById('student_id').innerHTML = `<i class="fa-solid fa-id-card"></i> ${userData.id_no}`;
+    const overlay = document.getElementById('overlay');
+
     userIcon.addEventListener('click', function() {
         // Toggle the visibility of the left section
         leftSection.classList.toggle('show');
-        
+
         // Show or hide the close icon based on the left section's visibility
         closeIcon.style.display = leftSection.classList.contains('show') ? 'inline-block' : 'none'; // Show close icon
         userIcon.style.display = leftSection.classList.contains('show') ? 'none' : 'inline-block'; // Hide user icon
-        document.body.classList.add('no-scroll'); 
+
+        if (leftSection.classList.contains('show')) {
+            document.body.classList.add('no-scroll'); 
+            overlay.style.display = 'block'; // Show overlay when left section is open
+        } else {
+            // Check if the right section is still open
+            if (!rightSection.classList.contains('show')) {
+                document.body.classList.remove('no-scroll');
+                overlay.style.display = 'none'; // Hide overlay if both sections are closed
+            }
+        }
+
         // If the right section is currently open, close it
         if (rightSection.classList.contains('show')) {
             rightSection.classList.remove('show');
@@ -51,7 +64,18 @@ document.addEventListener('DOMContentLoaded', function() {
         rightSection.classList.toggle('show');
         closeIcon.style.display = rightSection.classList.contains('show') ? 'inline-block' : 'none'; // Show close icon
         menuIcon.style.display = rightSection.classList.contains('show') ? 'none' : 'inline-block'; // Hide user icon
-        document.body.classList.add('no-scroll'); 
+
+        if (rightSection.classList.contains('show')) {
+            document.body.classList.add('no-scroll'); 
+            overlay.style.display = 'block'; // Show overlay when right section is open
+        } else {
+            // Check if the left section is still open
+            if (!leftSection.classList.contains('show')) {
+                document.body.classList.remove('no-scroll');
+                overlay.style.display = 'none'; // Hide overlay if both sections are closed
+            }
+        }
+
         if (leftSection.classList.contains('show')) {
             leftSection.classList.remove('show');
             userIcon.style.display = 'inline-block'; // Show user icon when left section is closed
@@ -69,41 +93,40 @@ document.addEventListener('DOMContentLoaded', function() {
         menuIcon.style.display = 'inline-block'; // Show menu icon
         userIcon.style.display = 'inline-block'; // Show user icon when closing the right section
         document.body.classList.remove('no-scroll'); 
+        overlay.style.display = 'none'; // Hide overlay
+
         // Ensure the left section is not affected
         if (leftSection.classList.contains('show')) {
             leftSection.classList.remove('show'); // Optional: if you want to also close the left section
         }
     });
 
-    // Close sections when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInsideLeft = leftSection.contains(event.target);
-        const isClickInsideRight = rightSection.contains(event.target);
-        const isClickInsideIcons = userIcon.contains(event.target) || menuIcon.contains(event.target) || closeIcon.contains(event.target);
-
-        // If click is outside of the left and right sections and icons
-        if (!isClickInsideLeft && !isClickInsideRight && !isClickInsideIcons) {
-            // Close the left section if it's open
-            if (leftSection.classList.contains('show')) {
-                leftSection.classList.remove('show');
-                userIcon.style.display = 'inline-block'; // Show user icon
-                closeIcon.style.display = 'none'; // Hide close icon
-            }else{
-                userIcon.style.display = 'inline-block'; 
-                menuIcon.style.display = 'inline-block'; // Show menu icon
-            }
-
-            // Close the right section if it's open
-            if (rightSection.classList.contains('show')) {
-                rightSection.classList.remove('show');
-                menuIcon.style.display = 'inline-block'; // Show menu icon
-                closeIcon.style.display = 'none'; // Hide close icon
-            } else{
-                userIcon.style.display = 'inline-block'; 
-                menuIcon.style.display = 'inline-block'; // Show menu icon
-            }
+    // Event to close sections when clicking on the overlay
+    overlay.addEventListener('click', function() {
+        if (leftSection.classList.contains('show')) {
+            leftSection.classList.remove('show');
+            userIcon.style.display = 'inline-block'; // Show user icon
+            closeIcon.style.display = 'none'; // Hide close icon
+        }else{
+            userIcon.style.display = 'inline-block'; 
+            menuIcon.style.display = 'inline-block'; // Show menu icon
         }
+
+        // Close the right section if it's open
+        if (rightSection.classList.contains('show')) {
+            rightSection.classList.remove('show');
+            menuIcon.style.display = 'inline-block'; // Show menu icon
+            closeIcon.style.display = 'none'; // Hide close icon
+        } else{
+            userIcon.style.display = 'inline-block'; 
+            menuIcon.style.display = 'inline-block'; // Show menu icon
+        }
+        // Hide overlay and remove no-scroll class
+        overlay.style.display = 'none';
+        document.body.classList.remove('no-scroll');
     });
+
+   
 
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
@@ -242,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         if (event.target == modal) {
             modal.style.display = 'none';
+            document.body.classList.remove('no-scroll'); // Enable body scroll
         }
     });
 
@@ -284,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     img.addEventListener('click', function() {
                         document.getElementById('fullscreenImage').src = img.src;
                         document.getElementById('fullscreenModal').style.display = 'flex';
+                        document.body.classList.add('no-scroll');
                     });
     
                     // Create the delete button
@@ -325,24 +350,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeFullscreen) {
         closeFullscreen.addEventListener('click', function() {
             document.getElementById('fullscreenModal').style.display = 'none'; // Hide the modal
+            document.body.classList.remove('no-scroll');
         });
     }
 
     if (closeModal) {
         closeModal.addEventListener('click', function() {
             document.getElementById('fullscreenModal').style.display = 'none'; // Hide the modal
+            document.body.classList.remove('no-scroll');
         });
     }
 
 
     function closeFullscreenModal() {
         fullscreenModal.style.display = 'none';
+        document.body.classList.remove('no-scroll');
     }
 
 
     fullscreenModal.addEventListener('click', function(event) {
         if (event.target === fullscreenModal) {
             closeFullscreenModal();
+            document.body.classList.remove('no-scroll');
         }
     });
 
@@ -370,13 +399,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData();
         
             // Append student_id and name to the form data
-            formData.append('student_id', userData.student_id); // Assuming student_id is also in userData
-            formData.append('student_name', `${userData.fname} ${userData.lname}`); // Concatenate first and last names
+            formData.append('student_id', userData.student_id);
+            formData.append('student_name', `${userData.fname} ${userData.lname}`);
             formData.append('concern', postText);
             
             for (let i = 0; i < postImages.length; i++) {
                 formData.append('images[]', postImages[i]);
             }
+        
+            // Immediately close the modal and show a loading spinner or message
+            postModal.style.display = 'none'; // Close the modal
+            document.body.classList.remove('no-scroll'); // Enable body scroll
+            document.getElementById('loadingSpinner').style.display = 'block'; // Show loading spinner
         
             // Send the data to your PHP script
             fetch('http://localhost/piyuhub/api/home/post_concern', {
@@ -386,16 +420,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json()) // Parse the JSON response
             .then(data => {
                 if (data.success) {
-                    // Instead of alerting the message, simply reload the page
-                    window.location.reload(); // Reload the page to see the new post
+                    document.getElementById('postInput').value = '';
+                    postImage.value = '';
+                    document.getElementById('imagePreviews').innerHTML = '';
+                    document.getElementById('loadingSpinner').style.display = 'none';
                 } else {
-    
+                    document.getElementById('loadingSpinner').style.display = 'none'; // Hide spinner if there's an error
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none'; // Hide spinner if there's an error
             });
-            
         });
         
     }
@@ -504,6 +540,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             img.addEventListener('click', function () {
                                 document.getElementById('fullscreenImage').src = imageSrc.trim();
                                 document.getElementById('fullscreenModal').style.display = 'flex';
+                                document.body.classList.add('no-scroll');
                             });
     
                             slide.appendChild(img);
@@ -562,7 +599,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         commentFetchInterval = setInterval(() => {
                             fetchComments(currentPostId); // Fetch comments every 5 seconds
-                        }, 5000);
+                        }, 1000);
                     });
     
                     createdAtDiv.appendChild(commentsText); // Add comments text to the container
@@ -796,12 +833,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function showImagePreview(file) {
         const reader = new FileReader();
         reader.onload = function (e) {
-            imagePreviewContainer.innerHTML = ''; // Clear previous previews
+
             const img = document.createElement('img');
             img.src = e.target.result; // Set the source to the file reader result
             img.style.maxWidth = '200px'; // Set max width for the preview
             img.style.maxHeight = '200px'; // Set max height for the preview
-            imagePreviewContainer.appendChild(img); // Add image to the preview container
         };
         reader.readAsDataURL(file); // Read the uploaded file as a Data URL
     }
@@ -852,8 +888,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error adding comment:', error));
         } else {
-            // Handle case when both text and image are missing
-            alert('Please enter a comment or select an image.');
+            
         }
     });
     
@@ -900,9 +935,6 @@ function hideImagePreview() {
     fetchPosts(); // Initial fetch of posts
 
     // Set an interval to refresh posts every 10 minutes (600,000 milliseconds)
-    setInterval(fetchPosts, 5000); // 5 minutes
+    setInterval(fetchPosts, 1000); // 5 minutes
     
 });
-
-
-
