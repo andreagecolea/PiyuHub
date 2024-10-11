@@ -7,87 +7,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="piyuLogo.png"> 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     <title>Home | PiyuHub</title>
     <script>
-        let userData; // Declare userData in a broader scope
-        let updateInterval; // Variable to store the interval ID
+        let userData; 
+        let updateInterval;
 
         document.addEventListener("DOMContentLoaded", function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if (!isLoggedIn) {
-                window.location.href = "index.html";
+                
             } else {
                 const userDataString = localStorage.getItem('userData');
                 if (userDataString) {
                     userData = JSON.parse(userDataString);
                     fetchUserData(userData.id_no); // Use the stored ID to fetch user data
                 } else {
-                    console.error('User data not found in localStorage.');
-                    window.location.href = "index.html";
+                   
                 }
             }
-
-            const concernsInput = document.getElementById('concernsInput');
-            concernsInput.placeholder = `Any concerns, ${userData.fname}?`;
-            // Handle the file input change event
-            const fileInput = document.getElementById('fileInput');
-            fileInput.addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        // Set the preview image src
-                        const imagePreviewModal = document.getElementById('imagePreviewModal');
-                        imagePreviewModal.src = e.target.result;
-
-                        // Show the modal
-                        const uploadModal = document.getElementById('uploadModal');
-                        uploadModal.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Confirm upload button
-            document.getElementById('confirmUpload').addEventListener('click', function() {
-                uploadProfilePicture();
-            });
-
-            // Cancel upload button
-            document.getElementById('cancelUpload').addEventListener('click', function() {
-                document.getElementById('uploadModal').style.display = 'none'; // Hide the modal
-                document.getElementById('fileInput').value = ''; // Clear the file input
-            });
         });
-
+        
+        // Fetch user data
         function fetchUserData(studentId) {
-            fetch(`http://localhost/piyuhub/api/home/load_account?student_id=${studentId}`)
+            fetch(`http://localhost/piyuhub/api/home/load_account?student_id=${studentId}&t=${new Date().getTime()}`) // Append a timestamp to prevent caching
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         // Update the account details with fetched user data
-                        const userData = data.userData;
-        
-                        document.getElementById('student_name').textContent = `${userData.fname} ${userData.lname}`;
-                        document.getElementById('student_id').innerHTML = `<i class="fa-solid fa-id-card"></i> ${userData.id_no}`;
-                        document.getElementById('student_college').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${userData.college}`;
-                        document.getElementById('student_email').innerHTML = `<i class="fa-solid fa-envelope"></i> ${userData.email}`;
-                        document.getElementById('department').textContent = userData.college;
-                        // Set profile picture
-                        const profilePic = document.querySelector('.profile-picture');
-                        const userProfilePic = document.getElementById('userProfilePic');
-                        const profileImageUrl = userData.profile_picture ? userData.profile_picture + '?t=' + new Date().getTime() : 'Upload/logo/profile.png';
-                
-                        // Update both profile picture displays
-                        profilePic.src = profileImageUrl;
-                        userProfilePic.src = profileImageUrl; // Update the user icon's src    
+                        updateUIWithUserData(data.userData); // Call the new update function
                     } else {
                         console.error(data.error);
-                        // Handle user not found case
                         window.location.href = "index.html"; // Redirect if user not found
                     }
                 })
@@ -97,82 +50,69 @@
                 });
         }
         
+        // Function to update the UI with user data
         function updateUIWithUserData(data) {
             document.getElementById('student_name').textContent = `${data.fname} ${data.lname}`;
             document.getElementById('student_id').innerHTML = `<i class="fa-solid fa-id-card"></i> ${data.id_no}`;
             document.getElementById('student_college').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${data.college}`;
             document.getElementById('student_email').innerHTML = `<i class="fa-solid fa-envelope"></i> ${data.email}`;
-            document.getElementById('department').textContent = userData.college;
-            
+            document.getElementById('department').textContent = data.college;
+        
             const profilePic = document.querySelector('.profile-picture');
             const userProfilePic = document.getElementById('userProfilePic');
             const pictureSrc = data.profile_picture ? data.profile_picture + '?t=' + new Date().getTime() : 'Upload/logo/profile.png';
             profilePic.src = pictureSrc;
             userProfilePic.src = pictureSrc;
-
+        
             const concernsInput = document.getElementById('concernsInput');
             concernsInput.placeholder = `Any concerns, ${data.fname}?`;
         }
-
-        function startUpdateCheck() {
-            // Clear any existing interval
-            if (updateInterval) {
-                clearInterval(updateInterval);
-            }
-
-            // Set up a new interval to check for updates every 30 seconds
-            updateInterval = setInterval(checkForUpdates, 30000);
-        }
-
-       
-
-        function uploadProfilePicture() {
-            const fileInput = document.getElementById('fileInput'); 
-            const studentId = userData.id_no;
-            
-            if (fileInput.files.length > 0) {
-                const formData = new FormData();
-                formData.append('profile_picture', fileInput.files[0]);
-                formData.append('student_id', studentId);
-                
-                fetch('http://localhost/piyuhub/api/home/upload_profile', {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.success);
-                        
-                        // Update the profile picture src
-                        const profilePic = document.querySelector('.profile-picture');
-                        const userProfilePic = document.getElementById('userProfilePic');
-                        const newPictureSrc = data.profile_picture + '?t=' + new Date().getTime();
-                        profilePic.src = newPictureSrc;
-                        userProfilePic.src = newPictureSrc;
         
-                        // Update the userData object and localStorage
-                        userData.profile_picture = data.profile_picture; 
-                        localStorage.setItem('userData', JSON.stringify(userData));
-            
-                        // Hide the modal after successful upload
-                        document.getElementById('uploadModal').style.display = 'none';
-                        // Clear the file input
-                        fileInput.value = '';
-
-                        // Trigger an immediate update check
-                        checkForUpdates();
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ensure userData is defined before fetching notifications
+            if (userData && userData.id) {
+                fetchNotifications(); // Initial fetch of notifications
+                // Set up interval to fetch notifications every 10 seconds
+                setInterval(fetchNotifications, 10000); // Adjust time as needed
+            } else {
+                console.error('User data is not defined. Please check user login status.');
+            }
+        
+            // Retrieve notification count from localStorage
+            const notificationCount = localStorage.getItem('notificationCount') || 0; // Default to 0 if not found
+            const notificationCountElement = document.getElementById('notificationCount');
+        
+            if (notificationCountElement) {
+                notificationCountElement.textContent = notificationCount; // Update notification count display
+            }
+        });
+        
+        function fetchNotifications() {
+            fetch(`http://localhost/piyuhub/api/home/get_notifications?user_id=${userData.id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched notifications:', data); // Log the fetched data
+        
+                    const notificationCountElement = document.getElementById('notificationCount');
+                    if (notificationCountElement) {  // Ensure the element exists
+                        if (Array.isArray(data)) {
+                            // Update the notification count and store in localStorage
+                            notificationCountElement.textContent = data.length; // Update the count
+                            localStorage.setItem('notificationCount', data.length); // Store in localStorage
+                        } else {
+                            console.error('Unexpected data structure:', data);
+                            notificationCountElement.textContent = 0; // Set default to 0
+                        }
                     } else {
-                        alert(data.error);
+                        console.error('Notification count element not found in the DOM.');
                     }
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                });
-            } else {
-                alert('Please select an image to upload.');
-            }
+                .catch(error => console.error('Error fetching notifications:', error));
         }
         
     </script>
@@ -181,34 +121,39 @@
 
 <body>
     <!-- Top Section -->
+    <div id="overlay" class="overlay"></div>
     <div id="top">
         <div class="logo-container">
             <img src="Upload/logo/Piyulogo.png" alt="Logo" class="logo">
-            <span class="site-name">PiyuHub</span>
+                <span class="site-name">PiyuHub</span>
         </div>
+        
+        
         <div class="icon-bar" id="icon-bar">
             <i class="fa-solid fa-user" id="user-icon"></i>
+            <i class="fa-solid fa-xmark" id="close-icon" style="display: none;"></i> <!-- Close icon -->
             <i class="fa-solid fa-bars" id="menu-icon"></i>
         </div>
+        
     </div>
 
     <!-- Left Section -->
     <div id="left">
         <div class="account-details">
-            <h3>ACCOUNT DETAILS</h3>
             <img alt="Profile Picture" class="profile-picture" src="Upload/logo/profile.png"><br>
-            <label class="custom-button" for="fileInput" title="Change Photo">Change Photo</label>
+            <button id="uploadButton" class="custom-button" >
+            <label for="fileInput" title="Change Photo">Change Photo</label>
+            </button>
             <input type="file" id="fileInput" class="file-input" style="display: none;" accept="image/*"/>
             <h2 class="student_name" id="student_name">Name here</h2>
             <p class="student_id" id="student_id"><i class="fa-solid fa-id-card"></i> 0422-0000</p>
             <p class="student_college" id="student_college"><i class="fa-solid fa-graduation-cap"></i> BSCS</p>
             <p class="student_email" id="student_email"><i class="fa-solid fa-envelope"></i> johndoe@example.com</p>
-            <button class="btn">Change Email</button>
-            <button class="btn">Change Password</button>
+            <a href="change_email_auth.html"> <button class="btn"> Change Email</button></a>
+            <a href="change_password.html"><button class="btn">Change Password</button></a>
             <button class="btn logout">Logout</button>
         </div>        
     </div>
-
     <!-- Middle Section -->
     <div id="middle">
         <div class="posting">
@@ -227,7 +172,7 @@
                     </div>
                     
                     <div class="input-group">  
-                        <input type="text" id="concernsInput" name="concerns" placeholder="Any concerns?" class="text-input">  
+                        <input type="text" id="concernsInput" name="concerns" placeholder="Any concerns?" class="text-input" readonly>
                     </div>
                 </div>
                 
@@ -236,6 +181,7 @@
     
 
 
+        
 
         <div id="postsContainer"></div>
 
@@ -248,25 +194,39 @@
         
     </div>
 
-    <!-- Upload Modal -->
-    <div id="uploadModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <h3>Preview Your Profile Picture</h3>
-            <img id="imagePreviewModal" src="" alt="Image Preview" style="max-width: 200px; margin-bottom: 10px;">
-            <button id="confirmUpload" class="btn">Upload</button>
-            <button id="cancelUpload" class="btn">Cancel</button>
+       <!-- Upload Modal -->
+        <div id="uploadModal" class="upload-modal"> <!-- Initially hidden -->
+            <div class="upload-modal-content">
+                <h3>Preview Your Profile Picture</h3>
+                <div class="pic-preview">
+                <img id="imagePreviewModal" style="max-width: 200px; margin-bottom: 10px; font-size:12px; border-radius:50%;"><br>
+                </div>
+                <p class="error-message" id="upload-error-message"></p> <!-- Error message element -->
+                <div class="upload-input">
+                    <label for="fileInput" title="Upload Photo"><i class="fa-solid fa-upload"></i></label>
+                    <input type="file" id="fileInput" class="file-input" accept="image/*"/>
+                </div>
+                <button id="confirmUpload" class="btn" onclick="uploadProfilePicture()">Upload</button>
+                <button id="cancelUpload" class="btn">Cancel</button>
+            </div>
         </div>
-    </div>
+
+
 
     <!-- Right Section -->
     <div id="right">
         <div class="other">
             <h3>OTHER</h3>
-            <button class="btn">NOTIFICATIONS</button>
+            <a href="notif.html">
+                <button class="btn">
+                    <span id="notificationCount" class="notification-count">0</span> <!-- Notification count -->
+                    NOTIFICATIONS
+                </button>
+            </a>
             <button class="btn">MESSAGES</button>
-            <button class="btn">GAMES</button>
-            <button class="btn">SCHOOL PROFILE</button>
-            <button class="btn">ABOUT US</button>
+            <a href="games.html"><button class="btn">GAMES</button></a>
+            <a href="schoolprofile.html"><button class="btn">SCHOOL PROFILE</button></a>
+            <a href="about_us.html"><button class="btn">ABOUT US</button></a>
         </div>
     </div>
 
@@ -286,19 +246,20 @@
         <div class="modal-content-post">
             <h3>Post Your Concern</h3>
             <div class="post-input-group">  
-                <textarea id="postInput" name="concern" placeholder="Type your concern here..." class="text-input" rows="4" style="width: 100%;"></textarea>  
+                <textarea id="postInput" name="concern" placeholder="Type your concern here... (Required)" class="text-input" rows="4" style="width: 100%;" required></textarea>  
             </div>
-            <div class="btn-upl">
-            <div id="imagePreviews" class="image-previews"></div>
             <div class="upload-btn">
                 <label for="postImage" class="upload-label">
-                    <p><i class="fa-solid fa-camera"></i> Upload Images (up to 5)</p>
+                    <p><i class="fa-solid fa-camera"></i> Maximum of 5 images</p>
                 </label>
                 <input type="file" id="postImage" class="file-input" style="display: none;" accept="image/*" multiple/>
             </div>
-            <button id="submitPost" class="btn">Post</button>
-            <button id="cancelPost" class="btn">Cancel</button>
-        </div>
+            <div id="imagePreviews" class="image-previews"></div>
+            <div class="btn-upl">
+                
+                <button id="cancelPost" class="btn">Cancel</button>
+                <button id="submitPost" class="btn">Post</button>
+            </div>
         </div>
     </div>
 
@@ -307,6 +268,67 @@
         <span class="close" id="closeFullscreen">&times;</span>
         <img class="fullscreen-image" id="fullscreenImage" src="" alt="Full Size Image">
     </div>
+
+    <div id="loadingSpinner" style="display:none;">
+        <div class="spinner"></div>
+        <p>Posting...</p>
+    </div>
+
+      <!-- Comment Modal -->
+    <div id="commentModal" class="comment-modal">
+        <span id="closeCommentModal" class="close" title="Close">&times;</span>
+            <h3>Comments</h3>
+        <div class="comment-modal-content">
+            <ul id="commentList">
+                <!-- Comments will be dynamically added here -->
+            </ul>        
+        </div>
+        <!-- Comment input form -->
+        <div id="commentInputSection">
+            <!-- Image Preview Section (Initially hidden) -->
+            <div id="commentImagePreviewContainer" style="position: relative; display: none; text-align: right;">
+                <img id="commentImagePreview">
+                <span id="removeImageBtn" class="remove-image-btn">&times;</span>
+            </div>
+        
+            <!-- Input and Buttons Wrapper -->
+            <div id="commentInputWrapper" style="display: flex; align-items: center; width: 100%;">
+                <!-- Textarea for comment -->
+                <textarea id="commentInput" placeholder="Write your comment here..." rows="3"></textarea>
+        
+                <!-- Add icon to upload image -->
+                <input type="file" id="commentImageInput" style="display: none;" accept="image/*">
+                <label for="commentImageInput" class="upload-image-icon">
+                    <i class="fa-solid fa-paperclip"></i> <!-- This is the icon for image upload -->
+                </label>
+        
+                <!-- Submit Button -->
+                <button id="submitCommentBtn" type="button"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- Full-screen Modal for Viewing Images -->
+    <div id="imageModal" class="imageModal" style="display:none;">
+        <span class="imageClose" id="modalClose">&times;</span>
+        <img class="image-modal-content" id="modalImage" alt="Full Size Image">
+        <div id="caption"></div>
+    </div>
+
+    <div id="deletePostModal" class="delete-modal">
+    <div class="delete-modal-content">
+        <div class="modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this post?</p>
+            <button id="confirmDeleteButton" class="btn">Yes, Delete</button>
+            <button id="cancelDeleteButton" class="btn">Cancel</button>
+        </div>
+    </div>
+    </div>
+
+   
+
+  
+    
 </body>
 
 <script src="home_scripts.js"></script>
