@@ -28,10 +28,10 @@ body {
 }
 
 .icon-bar {
-    position: absolute; /* or use fixed for it to stay while scrolling */
-    top: 15px; /* Adjust to your preference */
-    right: 25px; /* Adjust to your preference */
-    cursor: pointer; /* Makes the icon look clickable */
+    position: absolute; 
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
     display: none;
 }
 
@@ -52,6 +52,7 @@ body {
     display: flex;
     align-items: center;
 }
+
 
 .logo {
     width: 30px;
@@ -74,23 +75,32 @@ body {
     border-right: 1px solid lightgrey;
     position: fixed;
     left: 0;
-    height: 100%;
-    z-index: 1000;
-    width: 22.74%;
+    height: 100vh; /* Full viewport height */
+    width: 22.5%;
+    overflow-y: auto; /* Enables vertical scrolling if content overflows */
 }
+
 
 .account-details {
     text-align: center;
 }
-
+.account-details a{
+    text-decoration: none;
+    color: black;
+}
 .file-input {
     display: none;
 }
 
 .custom-button {
     font-size: 0.75rem;
-    border-bottom: 1px solid black;
     padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     
 }
 
@@ -99,16 +109,18 @@ body {
 }
 
 .profile-picture {
-    width: 150;
-    height: 150px;
+    width: 170px;
+    height: 170px;
     border-radius: 10px;
     margin-bottom: 15px;
+    margin-top: 10px;
 }
 
 .account-details h2 {
     margin: 10px 0;
     font-size: 1.2rem;
 }
+
 
 .account-details p {
     margin: 5px 0;
@@ -137,8 +149,7 @@ body {
 }
 
 .upload-btn {
-    width: 100%;
-    margin-bottom: 10px;
+    width: 40%;
     font-size: 10px;
     color: #030303;
     border: 2px solid transparent;
@@ -148,6 +159,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin: auto;
 }
 
 .upload-btn:hover {
@@ -165,12 +177,15 @@ body {
 .posting {
     display: flex;
     justify-content: center;
+    align-items: center;
     border-bottom: 1px solid lightgrey;
     color: #030303;
     background-color: white;
     position: fixed;
     width: 50%;
     z-index: 1000;
+    margin-top: 5px;
+
 }
 
 .posting button {
@@ -190,8 +205,7 @@ body {
     position: fixed;
     right: 0;
     height: 100%;
-    width: 23%;
-    z-index: 1000;
+    width: 22.5%;
 }
 
 .other h3 {
@@ -210,8 +224,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 90%;
-    max-width: 500px;
-    margin: 80px auto;
+    max-width: 650px;
+    margin: 80px auto 10px auto;
 }
 
 .p-icon {
@@ -222,11 +236,14 @@ body {
 .input-group {
     display: flex;
     align-items: center;
-    border: 2px solid #ccc;
     border-radius: 50px;
     padding: 10px;
     width: 100%;
     margin-bottom: 15px;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 /* Ensure the container is a flex container and aligns items to the right */
 
@@ -265,21 +282,57 @@ body {
     flex-grow: 1;
     border: none;
     outline: none;
-    font-size: 0.9rem;
+    font-size: 16px;
+    background-color: transparent;
     padding: 5px;
 }
-
-
-
-
-
-
 
 .tab {
     display: inline-block;
     padding: 10px 10px;
     cursor: pointer;
 }
+#loadingSpinner {
+    position: fixed; /* Make it appear on top of the page */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Linear gradient background */
+    padding: 30px; /* Increased padding for more breathing space */
+    border-radius: 15px; /* Slightly larger border radius for softer corners */
+    text-align: center;
+    color: white;
+    z-index: 1000; /* Make sure it's on top */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+    width: 150px;
+}
+
+#loadingSpinner p {
+    margin-top: 10px;
+    font-size: 16px; /* Larger font size for better readability */
+    color: #fff;
+    font-weight: bold; /* Make text bold for emphasis */
+}
+
+/* Spinner animation */
+.spinner {
+    width: 30px; /* Increased size for better visibility */
+    height: 30px; /* Increased size for better visibility */
+    border: 6px solid rgba(255, 255, 255, 0.3); /* Light grey border */
+    border-top-color: #fff; /* White border for the spinning effect */
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+    margin: 0 auto; /* Center the spinner horizontally */
+    display: block; /* Ensure it takes block-level space */
+}
+
+/* Spinner animation keyframes */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 
 .tab.active {
     border-bottom: 2px solid #4CAF50;
@@ -288,7 +341,7 @@ body {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; 
-    z-index: 1000; /* Sit on top */
+    z-index: 1001; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; 
@@ -296,14 +349,52 @@ body {
     background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
     justify-content: center;
     align-items: center;
+    margin: auto;
+    
 }
-
 .modal-content {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for better appearance */
+}
+.upload-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+.custom-button{
+    background-color: transparent;
+    border-radius: 50px;
+}
+
+.account-details label{
+    cursor: pointer;
+}
+.upload-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for better appearance */
+}
+.upload-modal-content h3{
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
 }
 
 .modal h2 {
@@ -344,33 +435,41 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-   z-index: 1000;
+    z-index: 1000;
 }
 
 .modal-content-post {
     background-color: white;
     padding: 20px 0px;
-    border-radius: 5px;
     width: 100%;
     max-width: 400px;
-    border-radius: 20px;
 }
 .modal-content-post h3{
     text-align: center;
     border-bottom: 1px solid black;
     width: 100%;
     padding-bottom: 10px;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
 }
-.btn-upl{
+.btn-upl {
     border-top: 1px solid black;
-    padding: 20px 100px;
+    padding: 10px;
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: space-between; /* Adds space between the buttons */
+    gap: 10px; /* Optional: Adds spacing between buttons */
+
 }
+
+
 .post-input-group{
     border: 2px solid transparent;
     background-color: transparent;
     padding: 0px 20px;
     margin-bottom: 10px;
-    height: 150px;
+    height: 120px;
     max-height: 200px;
 }
 .post-input-group textarea{
@@ -396,33 +495,39 @@ body {
     max-height: 90%;
 }
 
-.close {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
+
 .post-container {
     background-color: #fff;
     padding: 20px;
     margin: 80px auto;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-top: 1px solid #5f5f5f;
+    border-bottom: 1px solid #5f5f5f;
     padding-top: 30px;
-    padding-bottom: 30px; 
+    padding-bottom: 50px; 
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    position: relative;
 }
+
 .user-post {
     display: flex; 
     align-items: center; 
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgb(160, 160, 160);
     padding-bottom: 20px;
+    
+}
+.upload-modal-content label{
+    cursor: pointer;
+    font-size: 12px;
+}
+.upload-input{
+    margin-bottom: 10px;
 }
 
+
 .user-post p {
-    margin: 0 10px;         
+    margin: 0 10px;    
 }
 
 .user-dp {
@@ -430,12 +535,14 @@ body {
     margin-right: 10px;
     border-radius: 50px;
 }
+.student-name{
+    font-weight: bold;
+}
 .post-content img {
     display: block;
     margin: 0 auto;
 
 }
-
 
 .btn1:hover {
     background: linear-gradient(90deg, #4CAF50, #00BCD4);
@@ -443,13 +550,86 @@ body {
 }
 
 
+.post-container {
+    background-color: #fff;
+    padding: 20px;
+    margin: 80px auto;
+    border-top: 1px solid #5f5f5f;
+    border-bottom: 1px solid #5f5f5f;
+    padding-top: 30px;
+    padding-bottom: 30px; 
+}
 
-.post-content {
-    padding: 15px; /* Optional: Add padding */
+.post-text {
+    max-height: 200px; /* Set the max height for the post content */
+    overflow-y: auto; /* Enables vertical scrolling */
+    margin-top: 10px; /* Optional: Adds spacing between user info and post content */
+}
+
+/* Optional: Style for scrollbar (for Webkit browsers) */
+.post-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.post-text::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.post-text::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Ensure image stays in the post container */
+.post-image {
+    width: 100%; /* Set the image to take the full width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the area */
+    margin-bottom: 10px; /* Add some space below the image */
 }
 
 .student-college {
     color: #8e8e8e;
+    padding: 2px 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+.student-position {
+    color: #8e8e8e;
+    padding: 2px 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+#student_id i{
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
+}
+#student_college i{
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
+}
+#student_email i{
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
+}
+
+.student-college:hover {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+}
+.student-position:hover {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
 }
 
 .swiper-container {
@@ -470,13 +650,22 @@ body {
     align-items: center;
     justify-content: center;
     background-color: transparent;
+    position: relative;
 }
 
 .swiper-slide img {
     width: 100%;
     height: auto;
     object-fit: cover;
+    position: absolute; /* Position the image absolutely within the slide */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    z-index: -1; /* Send the image to the back layer */
+    /* You can also set the height to 100% if you want it to cover the entire slide */
+    height: 100%; 
 }
+
+
 
 .swiper-pagination {
     position: absolute;
@@ -485,17 +674,25 @@ body {
     transform: translateX(-50%);
 }
 
+/* Default bullet color (green) */
 .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: green !important; /* Ensure green bullet color */
     opacity: 1;
 }
 
+/* Active bullet color (darker green or any other green shade) */
 .swiper-pagination-bullet-active {
-    background-color: #fff;
+    background: linear-gradient(45deg, #4CAF50, #00BCD4) border-box !important;
+    transition: background-color 0.3s, color 0.3s;
+    color: white;
 }
 
+/* Optional: Style for fraction pagination */
+.swiper-pagination-current {
+    color: green !important; /* Ensure current slide number is green */
+}
 #fullscreenModal {
     display: none;
     position: fixed;
@@ -508,7 +705,13 @@ body {
     align-items: center;
     justify-content: center;
 }
-
+.error-message {
+    color: red;
+    font-size: 12px; /* Initially hidden */
+    margin-top: 5px;
+    position: relative;
+    text-align: center;
+ }
 #fullscreenImage {
     max-width: 90%;
     max-height: 90%;
@@ -522,6 +725,505 @@ body {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Make sure it's on top of everything */
+}
+
+#close-icon{
+    font-size: 25px;
+    margin: 0 10px;
+}
+.pic-preview{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+.upload-input i{
+    font-size: 25px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 10px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+}
+.upload-input i:hover{
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+    color: black;
+}
+
+.comments-container {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 10px; /* Optional: space below comments section */
+}
+
+.post-created-at-container {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+}
+
+.post-created-at {
+    text-align: right; /* Align text to the right */
+    font-size: 10px;
+    color: grey;
+    margin-left: auto; /* Push to the right */
+}
+
+.comments-container {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    margin-bottom: 10px; /* Optional: space below comments section */
+}
+
+
+.comments-text {
+    margin-left: 5px; /* Space between icon and "Comments" text */
+    font-size: 13px; /* Match the size with the icon */
+    background: linear-gradient(45deg, #4CAF50, #00BCD4);
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Make the text transparent */
+    font-weight: bold; /* Optional: make the text bold */
+}
+
+.comment-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    max-width: 105vh;
+}
+
+.comment-modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding-left: 30px;
+    overflow-y: auto; /* Enable scrolling within the modal */
+    border-radius: 50px;
+}
+.comment-modal h3{
+    padding-left: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #030303;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 3px 12px;
+    margin: 10px;
+}
+
+.close:hover,
+.close:focus {
+    opacity: 90%;
+    text-decoration: none;
+    cursor: pointer;
+}
+#commentList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center; /* Center the comment list horizontally */
+    width: 90%; /* Full width to maintain structure */
+    max-width: 100%; /* Optionally limit the maximum width */
+}
+
+/* Individual comment item */
+/* Individual comment item */
+.comment-item {
+    padding: 20px 60px;
+    margin-bottom: 10px;
+    color: #030303;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Comment text styling */
+.comment-item p {
+    margin: 5px 0;
+    color: #333;
+    flex-shrink: 0; /* Prevent the comment text from shrinking */
+    white-space: normal; /* Ensure text wraps normally */
+    word-wrap: break-word; /* Break long words if necessary */
+}
+/* Comment text container (scrollable) */
+.comment-text-container {
+    max-height: 150px; /* Set a max height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding-right: 10px; /* Optional padding */
+}
+
+/* Comment info container */
+.comment-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(180, 180, 180);
+    padding-bottom: 10px;
+}
+/* Student college with styling */
+.student-college-comment {
+    color: #8e8e8e;
+    padding: 2px 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.student-college-comment:hover {
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+}
+
+.student-name-comment {
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+/* Comment creation time placed below comment text */
+.comment-created-at {
+    font-size: 10px;
+    color: #999;
+    margin-top: 10px; /* Adds some space above the date */
+    text-align: right; /* Align it to the right */
+}
+
+
+.post-content .comments-text{
+    display: flex;
+    flex-direction: column; /* Align items in a column */
+    align-items: center; /* Center children elements */
+    width: 100%; /* Adjust width as needed */
+}
+
+#commentInputSection {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px; /* Padding around the input */
+    z-index: 1000; /* Ensure it stays on top */
+    width: 90%;
+    max-width: 100vh;
+    display: flex;
+    flex-direction: column; /* Stack the image preview and input section vertically */
+    background-color: white;
+}
+#commentImagePreviewContainer {
+    margin-bottom: 10px; /* Space between image preview and input */
+    display: none; /* Initially hidden */
+    text-align: center; /* Center the preview */
+}
+
+#commentImagePreview {
+    max-width: 150px; /* Smaller, but visible */
+    height: auto;
+    border-radius: 10px; /* Optional: Rounded edges */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for visibility */
+}
+.comment-image-container {
+    display: flex; /* Use flexbox to center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 10px 0; /* Optional: Add some margin for spacing */
+}
+
+.comment-image {
+    max-width: 100%; /* Ensure the image doesn't overflow its container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+#commentInputWrapper {
+    display: flex; /* Keep the input, upload, and send button in a row */
+    width: 100%;
+}
+
+#commentInput {
+    flex: 1; /* Take up all available space */
+    padding: 10px 25px;
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 50px;
+    font-size: 14px;
+    resize: none; /* Disable resizing */
+    font-family: 'Poppins', sans-serif;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.upload-image-icon {
+    cursor: pointer;
+    font-size: 30px;
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+
+#submitCommentBtn {
+    padding: 20px 15px;
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#submitCommentBtn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#removeImageBtn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.no-scroll {
+    overflow: hidden; /* Prevent scrolling */
+    height: 100%; /* Maintain the full height */
+}
+
+
+.no-comments-item{
+    text-align: center;
+    color: #888;
+}
+.commenter-dp {
+    width: 30px; /* Set desired width */
+    height: 30px; /* Set desired height */
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px; /* Space between image and text */
+    vertical-align: middle; /* Align vertically */
+}
+
+.imageModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.9); /* Black background with opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.image-modal-content {
+    margin: 50px auto;
+    display: block;
+    max-width: 100%; /* Ensure image does not exceed modal width */
+    max-height: 80%; /* Limit height to prevent overflow */
+}
+
+.imageClose {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.post-content {
+    position: relative; /* Ensure the parent container is positioned */
+}
+
+.delete-icon-container {
+    position: absolute;
+    top: 10px; /* Adjust the distance from the top */
+    right: 10px; /* Adjust the distance from the right */
+}
+
+.delete-icon-container i {
+    font-size: 15px; /* Adjust the icon size */
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    color: white;
+    transition: transform 0.2s ease; /* Optional: Add a hover effect */
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.delete-icon-container i:hover {
+    transform: scale(1.2); /* Optional: Slight enlarge on hover */
+}
+
+/* General modal styling */
+.delete-modal {
+    display: none; /* Hidden by default */
+}
+.delete-modal-content{
+    display: flex; /* Flexbox for centering */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+/* Modal content styling */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    width: 300px; /* You can adjust the width */
+    text-align: center; /* Center text content */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for effect */
+}
+.modal-content-post {
+    border-radius: 50px;
+}
+
+.no-comments-item {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    font-size: 18px; /* Adjust font size */
+    margin: 10px 0; /* Add some margin for spacing */
+    padding: 10px; /* Add padding for a better touch target */
+    background-color: rgba(255, 255, 255, 0.9); /* Slight background color for contrast */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center;
+}
+
+.no-comments-item span {
+    margin-left: 8px; /* Space between icon and text */
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+    background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+    font-weight: bold; /* Make the font bold */
+}
+
+.no-comments-item i {
+    font-size: 24px; /* Adjust icon size */
+    color: #4CAF50; /* Icon color */
+}
+
+.notification-count {
+    background-color: rgb(241, 85, 85);      /* Red background */
+    color: white;               /* White text color */
+    border-radius: 50%;         /* Make it circular */
+    padding: 2px 6px;          /* Padding for better appearance */
+    font-size: 14px;            /* Font size */
+}
+.btn {
+    position: relative;         /* Set button position to relative to position notification count */
+    display: inline-block;      /* Make sure the button is an inline-block for better positioning */
+}
+/* Lost & Found Choice Container */
+.lost-found-choice {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+/* Radio Label Styling */
+.radio-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Hide the default radio button */
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+/* Custom Radio Button Styling */
+.custom-radio {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent; /* Remove solid border */
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+    transition: background-color 0.3s ease, border 0.3s ease;
+    background: linear-gradient(90deg, #4CAF50, #00BCD4); /* Gradient background */
+}
+
+/* Checked State */
+.radio-label input[type="radio"]:checked + .custom-radio {
+    border: 2px solid transparent; /* Keep transparent for consistency */
+}
+
+/* Small dot inside when checked */
+.radio-label input[type="radio"]:checked + .custom-radio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Hover Effect */
+.radio-label:hover {
+    color: #4CAF50; /* Change text color on hover */
+}
+
+.radio-label:hover .custom-radio {
+    border-color: #00BCD4; /* Change border color on hover */
 }
 
 
@@ -560,6 +1262,7 @@ body {
 }
 
 
+  
 @media screen and (max-width: 768px) {
     #left, #right {
         display: none;
@@ -601,22 +1304,12 @@ body {
         padding-bottom: 15px;
     }
 
-    .user-post p {
-        font-size: 12px;
-        margin: 5px 0;
-    }
 
-    .user-dp {
-        max-width: 40px;
-    }
 
     .post-content {
         padding: 10px 0;
     }
 
-    .student-college {
-        font-size: 10px;
-    }
 
     .swiper-container {
         max-height: 300px;
@@ -624,37 +1317,10 @@ body {
 
 }
 
-@media screen and (max-width: 768px) {
-    body {
-        grid-template-areas:
-            "top"
-            "middle";
-        grid-template-columns: 1fr;
-    }
-
-    #middle {
-        padding: 0 10px;
-    }
-}
 /* Responsive Design */
-@media screen and (max-width: 1024px) {
-    body {
-        grid-template-areas:
-            "top top top"
-            "left middle right";
-        grid-template-columns: 30% 40% 30%;
-    }
-    #middle {
-        width: 100%;
-    }
 
-    .posting {
-        width: 100%;
-    }
-   
-}
 /* tablet*/
-@media screen and (max-width: 1010px) {
+@media screen and (max-width: 1024px) {
     body {
         grid-template-areas:
             "top"
@@ -663,12 +1329,19 @@ body {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 1fr auto;
     }
-
-    .posting {
-        position: fixed;
+    #middle {
         width: 100%;
     }
-    
+    .posting {
+        position: fixed;
+        margin: 0px;
+        width: 100%;
+    }
+    .post-container {
+        margin: 50px auto;
+        padding: 10px;
+        max-width: 350px;
+    }
     #left {
         padding: 15px;
         display: none;
@@ -677,8 +1350,11 @@ body {
         bottom: 0;
         width: 93%;
         max-width: 450px;
-        z-index: 1000;
+        z-index: 1001;
         overflow-y: auto;
+    }
+    #left h3{
+        display: none;
     }
   
     #right {
@@ -714,7 +1390,7 @@ body {
     }
 
     .btn {
-        font-size: 20px;
+        font-size: 18px;
         padding: 8px;
     }
 
@@ -729,77 +1405,95 @@ body {
     .icon-bar {
         display: block;
     }
+    .image-modal-content {
+        margin: 100px auto;
+    }
+    .user-post p {
+        margin: 0 5px;    
+    }
+    .user-post p {
+        font-size: 12px;
+    }
+    .delete-icon-container i{
+        font-size: 12px;
+    }
+    .user-dp {
+        max-width: 40px;
+    }
 }
 
 
 /* sellphone */
 @media screen and (max-width: 480px) {
     .form-container{
-        width: 70%;
+        width: 80%;
     }
-  
+    .form-container img{
+        width: 45px;
+        height: 45px;
+    }
+    .form-container input{
+        font-size: 16px;
+    }
     .site-name {
         font-size: 1.2rem;
     }
 
     .profile-picture {
-        width: 300px;
-        height: 300px;
-        max-width: 300px;
-        max-height: 300px;
+        max-width: 150px;
+        max-height: 150px;
     }
 
     .account-details h2 {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .account-details p {
-        font-size: 18px;
+        font-size: 14px;
     }
 
 
     .posting button {
         margin: 5px;
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .input-group {
         padding: 5px;
     }
 
-    .text-input {
-        font-size: 0.8rem;
-    }
-
     .post-container {
         margin: 50px auto;
         padding: 10px;
+        max-width: 350px;
     }
 
     .user-post {
         padding-bottom: 10px;
     }
 
-    .user-post p {
-        font-size: 11px;
-    }
-
     .user-dp {
-        max-width: 35px;
+        max-width: 40px;
     }
 
     .post-content {
         padding: 5px 0;
     }
 
-    .student-college {
-        font-size: 9px;
-    }
 
     .swiper-container {
         max-height: 250px;
     }
-
+    .comment-item{  
+        padding: 20px 30px;
+    }
+    .modal-content-post {
+        height: 100%;
+        border-radius: 0px;
+    }
+    .student-college-comment, .student-name-comment{
+        font-size: 12px;
+    }
 }
 
 @media screen and (max-width: 390px){
@@ -807,3 +1501,44 @@ body {
         width: 50%;
     }
 }
+
+@media screen and (max-height: 1400px) {
+    .comment-modal-content {
+        height: 82%; /* Adjust height for smaller screens */
+}
+}
+@media screen and (max-height: 1024px) {
+    .comment-modal-content {
+        height: 80%; /* Adjust height for smaller screens */
+    }
+}
+
+@media screen and (max-height: 900px) {
+    .comment-modal-content {
+        height: 78%; /* Adjust height for smaller screens */
+    }
+}
+@media screen and (max-height: 800px) {
+    .comment-modal-content {
+        height: 75%; /* Adjust height for smaller screens */
+    }
+}
+@media screen and (max-height: 720px) {
+    .comment-modal-content {
+        height: 73%; /* Adjust height for smaller screens */
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    textarea {
+    font-size: 16px;
+    }
+}
+@media screen and (max-height: 667px) {
+    .comment-modal-content {
+        height: 70%; /* Adjust height for smaller screens */
+    }
+}
+
