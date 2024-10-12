@@ -1,0 +1,270 @@
+body {
+    font-family: "Poppins", sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Header styles */
+.header {
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid black;
+    position: fixed;
+    width: 100%;
+    background:linear-gradient(45deg, #4CAF50, #00BCD4) ;
+}
+.header h1{
+    margin-left: 20px;
+    color: white;
+}
+.whole{
+    padding: 150px 80px;
+}
+.back-arrow {
+    font-size: 18px;
+    margin-right: 10px;
+    border: 2px solid white;
+    padding: 5px 10px;
+    border-radius:100px;
+    cursor: pointer;
+    color: white;
+}
+
+.back-arrow:hover{
+    background:linear-gradient(45deg, #4CAF50, #00BCD4) ;
+}
+/* Team member styles */
+.campus_members {
+    display: flex;
+    justify-content: space-between;
+    
+}
+.org {
+    text-align: center;
+    padding: 20px;  
+    border-radius: 10px;
+    width: 18%;
+    background: white;
+    border: none;
+    outline: none;
+    border-color: transparent; 
+    background: linear-gradient(white, white) padding-box, 
+    linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    border-style: solid;
+    color: black;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+
+}
+.org i {
+    font-size: 75px;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.org button {
+
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    width: 90%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    background:linear-gradient(45deg, #4CAF50, #00BCD4);
+}
+
+/* contact button with email icon inside link tag <a></a> */
+.contactBtn i {
+    
+    font-size: 25px;
+    display:grid;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .header h1{
+        font-size: 25px;
+    }
+    .team-members{
+        flex-wrap: wrap;
+    justify-content: space-around;
+    }
+    .member-card {
+        width: 100%;
+        margin: 10px;
+    }
+
+    .whole {
+        padding: 90px 10px;
+    }
+
+    .campus_members {
+        flex-direction: column;
+    }
+
+    .org {
+        width: 100%;
+        margin: 10px;
+    }   
+}
+
+/* Main container styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 30px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    padding-top: 50px;
+    
+}
+
+.contact-form {
+
+    padding: 20px;
+    border-radius: 30px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    background: #fff;
+   
+}
+
+.form-group {
+    margin-bottom: 18px;
+    width: 100%;  
+
+}
+
+/* Form group styling */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 17px;
+    
+}
+.form-group input,
+.form-group textarea {
+    width: 96%;
+    height: 30px;
+    padding: 8px;
+    font-size: 16px;
+    text-align: center;
+    background: white;
+    border: solid;
+    border-radius: 20px;
+    outline: none;
+    border-color: transparent; 
+    background: linear-gradient(white, white) padding-box, 
+    linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    border-style: solid;
+    color: black;  
+    
+}
+.form-group textarea {
+    height: 100px;
+    width: 96%;
+    resize: none;
+    padding-top: 18px;
+    
+}
+/* Submit button styling */
+.submit-btn {
+    width: 90%;
+    padding: 12px;
+    color: white;
+    border: none;
+    background: linear-gradient(45deg, #4CAF50, #00BCD4);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display:grid;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+.submit-btn:hover{
+    background: white;
+    border: none;
+    outline: none;
+    border-color: transparent; 
+    background: linear-gradient(white, white) padding-box, 
+    linear-gradient(45deg, #4CAF50, #00BCD4) border-box;
+    cursor: pointer;
+    border-style: solid;
+    color: black;
+   
+}
+
+.submit-btn {
+    font-weight: bold;
+}
+
+.close {
+
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    cursor: pointer;
+    color: black;
+
+}
+.close:hover{
+    color: #00BCD4;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .campus_members {
+        flex-wrap: wrap;
+    }
+    .org {
+        width: 45%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .org {
+        width: 100%;
+    }
+    .modal-content {
+        width: 90%;
+    }
+    .form-group input,
+    .form-group textarea {
+        width: 90%;
+    }
+}
