@@ -19,14 +19,14 @@
         document.addEventListener("DOMContentLoaded", function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if (!isLoggedIn) {
-                
+    
             } else {
                 const userDataString = localStorage.getItem('userData');
                 if (userDataString) {
                     userData = JSON.parse(userDataString);
                     fetchUserData(userData.id_no); // Use the stored ID to fetch user data
                 } else {
-                   
+
                 }
             }
         });
@@ -120,22 +120,7 @@
 </head>
 
 <body>
-    <!-- Top Section -->
-    <div id="overlay" class="overlay"></div>
-    <div id="top">
-        <div class="logo-container">
-            <img src="Upload/logo/Piyulogo.png" alt="Logo" class="logo">
-                <span class="site-name">PiyuHub</span>
-        </div>
-        
-        
-        <div class="icon-bar" id="icon-bar">
-            <i class="fa-solid fa-user" id="user-icon"></i>
-            <i class="fa-solid fa-xmark" id="close-icon" style="display: none;"></i> <!-- Close icon -->
-            <i class="fa-solid fa-bars" id="menu-icon"></i>
-        </div>
-        
-    </div>
+    
 
     <!-- Left Section -->
     <div id="left">
@@ -178,7 +163,22 @@
                 
             </form> 
         </div>
-    
+    <!-- Top Section -->
+    <div id="overlay" class="overlay"></div>
+    <div id="top">
+        <div class="logo-container">
+            <img src="Upload/logo/Piyulogo.png" alt="Logo" class="logo">
+                <span class="site-name">PiyuHub</span>
+        </div>
+        
+        
+        <div class="icon-bar" id="icon-bar">
+            <i class="fa-solid fa-user" id="user-icon"></i>
+            <i class="fa-solid fa-xmark" id="close-icon" style="display: none;"></i> <!-- Close icon -->
+            <i class="fa-solid fa-bars" id="menu-icon"></i>
+        </div>
+        
+    </div>
 
 
         
@@ -223,7 +223,7 @@
                     NOTIFICATIONS
                 </button>
             </a>
-            <button class="btn">MESSAGES</button>
+            <a href="contact.html"><button class="btn">CONTACT</button></a>
             <a href="games.html"><button class="btn">GAMES</button></a>
             <a href="schoolprofile.html"><button class="btn">SCHOOL PROFILE</button></a>
             <a href="about_us.html"><button class="btn">ABOUT US</button></a>
@@ -324,29 +324,10 @@
         </div>
     </div>
     </div>
-<!-- Chat bot -->
+
    
-<div id="chatbot-icon">
-    <img src="https://img.icons8.com/color/48/000000/chat.png" alt="Chatbot Icon">
-</div>
-<div id="chatbot-modal">
-    <div id="chatbot-header">
-        <span>Piyubot</span>
-        <span id="close-btn">&times;</span>
-    </div>
-    <div id="chatbot-messages">
-        <p><span class="bold">Piyubot:</span> Hello! How can I assist you today?</p>
-        <div>
-            <button class="faq-btn">How to use this app?</button>
-            <button class="faq-btn">What are the features?</button>
-            <button class="faq-btn">How to contact support?</button>
-        </div>
-    </div>
-    <div id="chatbot-input">
-        <input type="text" id="user-input" placeholder="Type your message...">
-        <button id="send-btn">Send</button>
-    </div>
-</div>
+
+  
     
 </body>
 
