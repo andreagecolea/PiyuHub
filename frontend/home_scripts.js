@@ -938,3 +938,62 @@ function hideImagePreview() {
     setInterval(fetchPosts, 1000); // 5 minutes
     
 });
+
+// Chat Bot
+const chatbotIcon = document.getElementById('chatbot-icon');
+        const chatbotModal = document.getElementById('chatbot-modal');
+        const closeBtn = document.getElementById('close-btn');
+        const sendBtn = document.getElementById('send-btn');
+        const userInput = document.getElementById('user-input');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const faqBtns = document.querySelectorAll('.faq-btn');
+
+        chatbotIcon.addEventListener('click', () => {
+            chatbotModal.style.display = 'block';
+            chatbotIcon.style.display = 'none';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatbotModal.style.display = 'none';
+            chatbotIcon.style.display = 'flex';
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message) {
+                appendMessage('You', message, 'user-message');
+                userInput.value = '';
+                // Here you can add logic to process the user's message and generate a response
+                setTimeout(() => {
+                    appendMessage('Chatbot', 'Thank you for your message. How else can I help you?', 'chatbot-message');
+                }, 1000);
+            }
+        }
+
+        function appendMessage(sender, message, className) {
+            const messageElement = document.createElement('p');
+            messageElement.classList.add(className);
+            const senderElement = document.createElement('span');
+            senderElement.classList.add('bold');
+            senderElement.textContent = sender + ': ';
+            messageElement.appendChild(senderElement);
+            messageElement.appendChild(document.createTextNode(message));
+            chatbotMessages.appendChild(messageElement);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                appendMessage('You', btn.textContent, 'user-message');
+                setTimeout(() => {
+                    appendMessage('Chatbot', 'Here\'s information about "' + btn.textContent + '". How else can I assist you?', 'chatbot-message');
+                }, 1000);
+            });
+        });
