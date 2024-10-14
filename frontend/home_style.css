@@ -7,7 +7,7 @@ body {
         "top top top"
         "left middle right";
     grid-template-rows: auto 1fr;
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 25% 65% 10%;
     min-height: 100vh;
     padding-top: 50px;
 }
@@ -183,7 +183,7 @@ body {
     color: #030303;
     background-color: white;
     position: fixed;
-    width: 50%;
+    width: 65%;
     z-index: 1000;
     margin-top: 5px;
 
@@ -205,13 +205,75 @@ body {
     border-left: 1px solid lightgrey;
     position: fixed;
     right: 0;
-    height: 100%;
-    width: 22.5%;
+    height: 110%;
+    width: 7%;
     z-index: 5000;
+    padding-top: 15px;
+}
+/* new design icon buttons*/
+
+.notification-count{
+  position: absolute;
+  top: 5px;
+  right: 9px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 12px;
+}
+.gradient-icon {
+    /* Set the background gradient */
+    background: linear-gradient(90deg, #4CAF50, #00BCD4);
+    
+    /* Background clipping */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* Make the text transparent so the gradient shows through */
+    color: transparent;
+
+    /* Font size and icon adjustments */
+    font-size: 30px; 
+    transition: color 0.3s ease, background 0.3s ease;
+}
+.btn:active .gradient-icon,
+.btn:focus .gradient-icon,
+.btn:active i,
+.btn:focus i {
+    background: none; /* Remove the gradient */
+    color: white; /* Change the icon color to white */
 }
 
-.other h3 {
-    text-align: center;
+/* change the color to white when hovering */
+.btn:hover .gradient-icon {
+    background: none;
+    color: white;
+}
+.icon-text {
+    width: 100px;
+    position: absolute;
+    right: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(#4CAF50, #00BCD4);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    margin-right: 10px;
+    margin: 0;
+    border: 1px #4CAF50 solid;
+}
+/* Show text on hover */
+.btn:hover .icon-text {
+    opacity: 1;
 }
 
 .posting a {
@@ -225,7 +287,7 @@ body {
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 90%;
+    width: 85%;
     max-width: 650px;
     margin: 80px auto 10px auto;
 }
@@ -1382,6 +1444,8 @@ body {
 #chatbot-messages .bold {
     font-weight: bold;
 }
+
+/*responsive*/
 @media screen and (max-width: 768px) {
     #left, #right {
         display: none;
@@ -1466,10 +1530,10 @@ body {
 
 }
 
-/* Responsive Design */
+
 
 /* tablet*/
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
     body {
         grid-template-areas:
             "top"
@@ -1507,15 +1571,16 @@ body {
     }
   
     #right {
-        padding: 15px;
+        padding: 10px;
         display: none;
         position: fixed;
         top: 50px;
         bottom: 0;
         width: 93%;
-        max-width: 450px;
+        max-width: 50px;
         z-index: 1000;
         overflow-y: auto;
+
     }
 
     #left {
@@ -1537,6 +1602,9 @@ body {
         right: 0;
         display: block;
     }
+    .gradient-icon{
+      font-size: 20px;
+    }
 
     .btn {
         font-size: 18px;
@@ -1549,6 +1617,7 @@ body {
 
     .form-container {
         width: 90%;
+        margin-top: 65px;
     }
 
     .icon-bar {
@@ -1569,9 +1638,19 @@ body {
     .user-dp {
         max-width: 40px;
     }
-}
-
-
+    .notification-count {
+        position: absolute;
+        top: 5px;
+        right: 9px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 5px;
+        font-size: 8px;
+    }
+    
+  
+}    
 /* sellphone */
 @media screen and (max-width: 480px) {
     .form-container{
@@ -1644,7 +1723,6 @@ body {
         font-size: 12px;
     }
 }
-
 @media screen and (max-width: 390px){
     .text-input{
         width: 50%;
