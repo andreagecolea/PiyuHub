@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="schoolprofile.css">
+    <link rel="stylesheet" href="school.css">
 
 </head>
 <body>
@@ -22,27 +22,30 @@
     </div>
 
     <div class="nav-buttons">
-        <button class="nav-button">CCS</button>
-        <button class="nav-button">CAS</button>
-        <button class="nav-button">CTE</button>
-        <button class="nav-button">CCJE</button>
-        <button class="nav-button">COF</button>
-        <button class="nav-button">CHMT</button>
-        <button class="nav-button">CBAA</button>
-        <button class="nav-button">CFND</button>
+        <button class="nav-button" data-target="ccs-section">CCS</button>
+        <button class="nav-button" data-target="cas-section">CAS</button>
+        <button class="nav-button" data-target="cte-section">CTE</button>
+        <button class="nav-button" data-target="ccje-section">CCJE</button>
+        <button class="nav-button" data-target="cof-section">COF</button>
+        <button class="nav-button" data-target="chmt-section">CHMT</button>
+        <button class="nav-button" data-target="cbaa-section">CBAA</button>
+        <button class="nav-button" data-target="cfnd-section">CFND</button>
+        <button class="nav-button" data-target="osas-section">OSAS</button>
     </div>
    
     <!-- Scroll Up Icon -->
     <div class="scroll-up" onclick="scrollToTop()">
-        <i class="fa-solid fa-arrow-up-long"></i></i> <!-- This is the up arrow symbol -->
+    <i class="fa-solid fa-arrow-up-from-bracket"></i> <!-- This is the up arrow symbol -->
     </div>
     
-    <div class="profile-container">
+    
+    <!-- CCS section -->
+    <div id="ccs-section" class="profile-container" style="display: none;">
       <!--First batch -->
         <div class="level level-1">
             <div class="profile-card">
-              <div class="icon icon1"></div>
-                <div class="name">Mario R. Briones Ed.D.</div>
+                <div class="icon icon1"></div>
+                <div class="name">Mario R. Briones, EdD</div>
                 <div class="title">University President</div>
             </div>
         </div>
@@ -54,7 +57,7 @@
             </div>
             <div class="profile-card">
                 <div class="icon icon3"></div>
-                <div class="name">Eden C. Callo Ed.D.</div>
+                <div class="name">Eden C. Callo, EdD</div>
                 <div class="title">Vice President for Academic Affairs</div>
             </div>
         </div>
@@ -250,6 +253,229 @@
             </div>
         </div>
     </div>
+    
+    <!-- CAS Section -->
+    <div id="cas-section" class="profile-container" style="display: none;">
+  <!-- CTE content here -->
+    </div>
+    
+    <!-- CTE Section -->
+    <div id="cte-section" class="profile-container" style="display: none;">
+  <!-- CTE content here -->
+    </div>
+    
+    <!-- CCJE Section -->
+    <div id="ccje-section" class="profile-container" style="display: none;">
+  <!-- CCJE content here -->
+    </div>
+    
+    <!-- COF Section -->
+    <div id="cof-section" class="profile-container" style="display: none;">
+  <!-- COF content here -->
+    </div>
+    
+    <!-- CHMT Section -->
+    <div id="chmt-section" class="profile-container" style="display: none;">
+  <!-- CHMT content here -->
+    </div>
+    
+    <!-- CBAA Section -->
+    <div id="cbaa-section" class="profile-container" style="display: none;">
+  <!-- CBAA content here -->
+    </div>
+    
+    <!-- CFND Section -->
+    <div id="cfnd-section" class="profile-container" style="display: none;">
+  <!-- CFND content here -->
+    </div>
+    
+    <!-- OSAS Section -->
+    <div id="osas-section" class="profile-container" style="display: none;">
+      <!--First batch -->
+      <div class="level level-1">
+        <div class="profile-card">
+          <div class="icon icon1"></div>
+          <div class="name">Mario R. Briones, EdD</div>
+          <div class="title">University President</div>
+        </div>
+      </div>
+      <div class="level level-2">
+        <div class="profile-card">
+          <div class="icon icon2"></div>
+          <div class="name">ATTY. Rushid Jhay S. Sancon, PhD</div>
+          <div class="title">Campus Director</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon3"></div>
+          <div class="name">Eden C. Callo Ed.D.</div>
+          <div class="title">Vice President for Academic Affairs</div>
+        </div>
+      </div>
+      <div class="level level-3">
+        <div class="profile-card">
+          <div class="icon icon29"></div>
+          <div class="name">Alberto B. Castillo, EdD</div>
+          <div class="title">Associate Dean</div>
+        </div>
+      </div>
+      <div class="level level-4">
+        <div class="profile-card">
+          <div class="icon icon30"></div>
+          <div class="name">Flora H. Salandanan, EdD</div>
+          <div class="title">Chairperson, OSAS</div>
+        </div>
+      </div>
+      <div class="level level-5">
+        <div class="profile-card">
+          <div class="icon icon31"></div>
+          <div class="name">Maria Teresa M. Rodriguez</div>
+          <div class="title">Student Organization and Activities</div>
+        </div>
+        <div class="profile-card">
+          <div class="name">Student Development Services</div>
+          <div class="title">Student Organization and Activities</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon32"></div>
+          <div class="name">Reniza F. Diola, MAEd</div>
+          <div class="title">Student Discipline</div>
+        </div>
+      </div>
+      <div class="level level-6">
+        <div class="profile-card">
+          <div class="icon icon33"></div>
+          <div class="name">Dr. Lorenzo C. Romabiles III</div>
+          <div class="title">SSC Advisor, Leadership Training</div>
+        </div>
+       <div class="profile-card">
+         <div class="icon icon34"></div>
+         <div class="name">Glen P. Cortezano, EdD</div>
+         <div class="title">Student Publication</div>
+       </div>
+       <div class="profile-card">
+         <div class="icon icon35"></div>
+         <div class="name">Victoria E. Tamban, EdD</div>
+         <div class="title">Research</div>
+       </div>
+      </div>
+      <div class="level level-7">
+        <div class="profile-card">
+          <div class="icon icon36"></div>
+          <div class="name">Philip Thomas V. Paruan</div>
+          <div class="title">Co Adviser, SSC</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon37"></div>
+          <div class="name">Supreme Student Council (SSC)</div>
+          <div class="title">Student Council/Government</div>
+        </div>
+      </div>
+      
+      <!--second batch -->
+      <div class="level">
+        <div class="profile-card">
+          <div class="name">Institutional Student Programs and Services</div>
+          <div class="title">BSIT Program Coordinator Associat Professor I</div>
+        </div>
+      </div>
+      
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon38"></div>
+          <div class="name">Mary Anne A. Alipao, RGC</div>
+          <div class="title">Admission Service</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon39"></div>
+          <div class="name">Joanna Marie D. Pagne, MAT</div>
+          <div class="title">Scholarship and Financial Assistance</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon40"></div>
+          <div class="name">Eden Joy L. Eugenio</div>
+          <div class="title">Security Management Services</div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon41"></div>
+          <div class="name">Nimfa G. Dimaculangan, PhD</div>
+          <div class="title">Foreign/International Student Service</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon42"></div>
+          <div class="name">Francis Jose S, Dela Cruz, PhD</div>
+          <div class="title">OIC, Sports Development</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon15icon43"></div>
+          <div class="name">Mary Ann S. Hernandez, EDd</div>
+          <div class="title">Services for Students with Special Needs & PWD's</div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon44"></div>
+          <div class="name">Melvin T. Guache</div>
+          <div class="title">Socio-Cultural Program</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon45"></div>
+          <div class="name">Charmaine W. Ballesteros, RN</div>
+          <div class="title">Health Service</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon46"></div>
+          <div class="name">Monique E. Malabayabas, MAEd</div>
+          <div class="title">Multi-Faith Services</div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon47"></div>
+          <div class="name">Hazel B. Juanillas</div>
+          <div class="title">Student Housing and Residential Services</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon48"></div>
+          <div class="name">Dian M. Guia</div>
+          <div class="title">Food Services</div>
+        </div>
+        <div class="profile-card">
+          <div class="icon icon49"></div>
+          <div class="name">Jann Arlie P. Agawin</div>
+          <div class="title">Social and Community Involvement Programs</div>
+        </div>
+      </div>
+
+      <!--third batch -->
+      <div class="level">
+        <div class="profile-card">
+          <div class="name">Student Welfare Services</div>
+          <div class="title">The basic services and programs needed to ensure and promote the well-being of students.</div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon50"></div>
+          <div class="name">Mary Anne A. Alipao, RGC</div>
+          <div class="title">Guidance and Counseling Service</div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon55"></div>
+          <div class="name">Christy Lianne R. Niem, MSCJ</div>
+          <div class="title">Alumni Affairs and Job Placement Services/Student Handbook Development</div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="profile-card">
+          <div class="icon icon60"></div>
+          <div class="name">Christopher F. Mendoza, MAT</div>
+          <div class="title">Economic Enterprise Development</div>
+        </div>
+      </div>
     </div>
     
     <script>
@@ -267,6 +493,27 @@ window.onscroll = function() {
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+// Function to show the targeted section and hide others
+document.querySelectorAll('.nav-button').forEach(button => {
+  button.addEventListener('click', function() {
+    const targetId = this.getAttribute('data-target');
+
+    // Hide all sections
+    document.querySelectorAll('.profile-container').forEach(section => {
+      section.style.display = 'none';
+    });
+
+    // Show the targeted section
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.style.display = 'block';
+    }
+  });
+});
+
+// Optional: Show a default section when the page loads
+document.getElementById('ccs-section').style.display = 'block';
 
     </script>
     
